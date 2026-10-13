@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker | Add Income</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-dark: #086288;
+            --brand-mid: #4D8DBA;
+            --brand-ice: #97D7FF;
+            --brand-cream: #FFEFC4;
+
+            --bg-base: #06151f;
+            --bg-surface: #0b1f2e;
+            --bg-surface-elevated: #10293d;
+            --bg-input: #081723;
+
+            --border-color: rgba(77, 141, 186, 0.22);
+            --border-focus: #4D8DBA;
+
+            --text-main: #f4f9fc;
+            --text-muted: #8ca5b5;
+            --income-green: #4ade80;
+
+            --sidebar-width: 260px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            background-image: 
+                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.14) 0%, transparent 55%),
+                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.2) 0%, transparent 60%),
+                radial-gradient(#10293d 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 28px 28px;
+        }
+
+        /* Offset wrapper for left sidebar */
+        .layout-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-width: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+        }
+
+        .form-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(2, 8, 14, 0.7), 0 0 0 1px rgba(151, 215, 255, 0.05);
+            width: 100%;
+            max-width: 460px;
+            padding: 36px 32px;
+            position: relative;
+        }
+
+        .card-header {
+            margin-bottom: 26px;
+        }
+
+        .badge-inflow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--income-green);
+            background: rgba(74, 222, 128, 0.12);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--income-green);
+            font-size: 1.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #d1e2ed;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--brand-ice);
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 13px 16px 13px 36px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
+            font-weight: 700;
+            background: var(--bg-input);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--border-focus);
+            background: var(--bg-surface-elevated);
+            box-shadow: 0 0 0 3px rgba(77, 141, 186, 0.18);
+        }
+
+        /* Buttons & Actions */
+        .submit-btn {
+            width: 100%;
+            background: var(--brand-cream);
+            color: #06151f;
+            border: none;
+            padding: 13px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(255, 239, 196, 0.15);
+        }
+
+        .submit-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 239, 196, 0.25);
+        }
+
+        .cancel-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 14px;
+            padding: 8px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .cancel-link:hover {
+            color: var(--brand-cream);
+            background: rgba(77, 141, 186, 0.1);
+        }
+
+        @media (max-width: 820px) {
+            body {
+                flex-direction: column;
+            }
+
+            .layout-wrapper {
+                margin-left: 0;
+                padding: 24px 16px;
+            }
+
+            .form-card {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shared Left Navigation -->
+    {% include 'navbar.html' %}
+
+    <!-- Main Centered Form Area -->
+    <div class="layout-wrapper">
+        <div class="form-card">
+            
+            <div class="card-header">
+                <div class="badge-inflow">
+                    <i class="fas fa-arrow-trend-up"></i> Inflow Transaction
+                </div>
+                <h1 class="card-title">
+                    <i class="fas fa-circle-plus"></i>
+                    Add Income
+                </h1>
+                <p class="card-subtitle">Log new earnings to increase your balance and total revenue.</p>
+            </div>
+
+            <form method="POST" action="">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="amount">Income Amount</label>
+                    <div class="input-wrapper">
+                        <span class="input-prefix">₹</span>
+                        <input type="number" id="amount" name="amount" min="1" step="any" placeholder="0" required autofocus>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-check"></i>
+                    Record Income
+                </button>
+
+                <a href="{% url 'home' %}" class="cancel-link">
+                    <i class="fas fa-arrow-left"></i> Cancel and return to Dashboard
+                </a>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

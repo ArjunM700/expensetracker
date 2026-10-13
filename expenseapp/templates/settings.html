@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker | Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-dark: #086288;
+            --brand-mid: #4D8DBA;
+            --brand-ice: #97D7FF;
+            --brand-cream: #FFEFC4;
+
+            --bg-base: #06151f;
+            --bg-surface: #0b1f2e;
+            --bg-surface-elevated: #10293d;
+            --border-color: rgba(77, 141, 186, 0.22);
+            --border-highlight: rgba(151, 215, 255, 0.35);
+
+            --text-main: #f4f9fc;
+            --text-muted: #8ca5b5;
+            --danger: #f87171;
+
+            --sidebar-width: 260px;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            background-image: 
+                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.18) 0%, transparent 60%),
+                radial-gradient(#10293d 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 28px 28px;
+        }
+
+        /* Offset wrapper for left sidebar */
+        .layout-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-width: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            max-width: 780px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Header */
+        .settings-header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .settings-header h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-header h1 i {
+            color: var(--brand-ice);
+            font-size: 1.45rem;
+        }
+
+        .settings-header p {
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            line-height: 1.5;
+        }
+
+        /* Settings Card List */
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .settings-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition);
+            box-shadow: 0 4px 20px -6px rgba(2, 8, 14, 0.45);
+        }
+
+        .settings-card:hover {
+            border-color: var(--border-highlight);
+            background: var(--bg-surface-elevated);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px -8px rgba(2, 8, 14, 0.7);
+        }
+
+        .settings-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(77, 141, 186, 0.12);
+            border: 1px solid rgba(77, 141, 186, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-ice);
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .settings-card:hover .icon-box {
+            background: rgba(151, 215, 255, 0.18);
+            border-color: var(--brand-ice);
+            color: var(--brand-cream);
+        }
+
+        .info-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+
+        .info-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .arrow-wrap {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(6, 21, 31, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-mid);
+            font-size: 0.85rem;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .settings-card:hover .arrow-wrap {
+            color: var(--brand-cream);
+            background: rgba(77, 141, 186, 0.25);
+            transform: translateX(4px);
+        }
+
+        /* Destructive / Log Out Card Variation */
+        .settings-card.logout-card {
+            border-color: rgba(248, 113, 113, 0.22);
+        }
+
+        .settings-card.logout-card .icon-box {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.25);
+            color: var(--danger);
+        }
+
+        .settings-card.logout-card .info-title {
+            color: var(--danger);
+        }
+
+        .settings-card.logout-card:hover {
+            border-color: rgba(248, 113, 113, 0.45);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .settings-card.logout-card:hover .icon-box {
+            background: rgba(239, 68, 68, 0.22);
+            color: #fca5a5;
+        }
+
+        .settings-card.logout-card:hover .arrow-wrap {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.18);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 820px) {
+            body {
+                flex-direction: column;
+            }
+
+            .layout-wrapper {
+                margin-left: 0;
+            }
+
+            .main-container {
+                padding: 24px 16px 40px;
+            }
+
+            .settings-card {
+                padding: 16px 18px;
+            }
+
+            .icon-box {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shared Left Navigation Bar -->
+    {% include 'navbar.html' %}
+
+    <!-- Main Content Layout -->
+    <div class="layout-wrapper">
+        <main class="main-container">
+
+            <div class="settings-header">
+                <h1>
+                    <i class="fas fa-gear"></i>
+                    Settings
+                </h1>
+                <p>Manage your account credentials, spending limits, history logs, and active session.</p>
+            </div>
+
+            <div class="settings-group">
+
+                <!-- Profile Option -->
+                <a href="{% url 'profile' %}" class="settings-card">
+                    <div class="settings-left">
+                        <div class="icon-box">
+                            <i class="fas fa-user-gear"></i>
+                        </div>
+                        <div>
+                            <div class="info-title">Profile Settings</div>
+                            <div class="info-desc">View and update your personal details and email</div>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                <!-- Add Limit Option -->
+                <a href="{% url 'add_limit' %}" class="settings-card">
+                    <div class="settings-left">
+                        <div class="icon-box">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <div class="info-title">Spending Limit</div>
+                            <div class="info-desc">Set or modify budget limits to prevent overspending</div>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                <!-- Expense History Option -->
+                <a href="{% url 'all_expenses' %}" class="settings-card">
+                    <div class="settings-left">
+                        <div class="icon-box">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div>
+                            <div class="info-title">Expense History</div>
+                            <div class="info-desc">View, manage, and edit all previously logged expenses</div>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                <!-- Income History Option -->
+                <a href="{% url 'all_incomes' %}" class="settings-card">
+                    <div class="settings-left">
+                        <div class="icon-box">
+                            <i class="fas fa-money-bill-trend-up"></i>
+                        </div>
+                        <div>
+                            <div class="info-title">Income History</div>
+                            <div class="info-desc">View, modify, and delete all recorded income</div>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+                <!-- Logout Option -->
+                <a href="{% url 'logout' %}" class="settings-card logout-card">
+                    <div class="settings-left">
+                        <div class="icon-box">
+                            <i class="fas fa-right-from-bracket"></i>
+                        </div>
+                        <div>
+                            <div class="info-title">Log Out</div>
+                            <div class="info-desc">Sign out of your active account session</div>
+                        </div>
+                    </div>
+                    <div class="arrow-wrap">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

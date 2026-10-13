@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker | Set Budget Limit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-base: #09090b;
+            --bg-surface: #18181b;
+            --bg-surface-soft: #202024;
+            --bg-input: #121215;
+            --border-color: #27272a;
+            --border-focus: #52525b;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --primary: #f4f4f5;
+            --primary-hover: #e4e4e7;
+            --btn-text: #09090b;
+            --danger: #ef4444;
+            --radius: 14px;
+            --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Shared Navbar */
+        .navbar {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: #71717a;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 9px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn-secondary {
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+
+        .nav-btn-secondary:hover {
+            color: var(--text-main);
+            background: var(--bg-surface-soft);
+            border-color: var(--border-color);
+        }
+
+        .nav-btn-primary {
+            background: var(--primary);
+            color: var(--btn-text);
+        }
+
+        .nav-btn-primary:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .nav-btn-danger {
+            color: var(--danger);
+            border: 1px solid transparent;
+        }
+
+        .nav-btn-danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        /* Layout Container */
+        .page-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .form-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 440px;
+            padding: 36px;
+        }
+
+        .card-header {
+            margin-bottom: 26px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d4d4d8;
+            margin-bottom: 8px;
+        }
+
+        /* Form Fields */
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--bg-input);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--border-focus);
+            background: var(--bg-surface-soft);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+            color: #f87171;
+            font-size: 13px;
+        }
+
+        .errorlist li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .errorlist li::before {
+            content: "•";
+        }
+
+        .non-field-errors {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            color: #f87171;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--btn-text);
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cancel-link {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 16px;
+            transition: var(--transition);
+        }
+
+        .cancel-link:hover {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Shared Navigation -->
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="brand-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                <path d="M16 12h.01"></path>
+                <path d="M2 10h20"></path>
+            </svg>
+            Expense Tracker<span>.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{% url 'add_expense' %}" class="nav-btn nav-btn-primary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add Expense
+            </a>
+            <a href="{% url 'profile' %}" class="nav-btn nav-btn-secondary">Profile</a>
+            <a href="{% url 'logout' %}" class="nav-btn nav-btn-danger">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="page-container">
+        <div class="form-card">
+            <div class="card-header">
+                <h1 class="card-title">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                        stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-main);">
+                        <path d="M12 2v20"></path>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    Set Budget Limit
+                </h1>
+                <p class="card-subtitle">Set your maximum spending threshold to manage overspending.</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="submit-btn">Save Limit</button>
+                <a href="{% url 'home' %}" class="cancel-link">Back to Dashboard</a>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

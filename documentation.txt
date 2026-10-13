@@ -1,0 +1,4 @@
+Got started on working on a django expense tracking website, created index, register, login, home, add expense, add income, add limit, settings pages
+registration was done using the default django User model, same with login. the forms for adding expense, income and limit were created using django forms.py 
+during execution an error was met caused by the expense type in the html field having different fields from the expense type in models.py, it was fixed. currently stopping at that, next i intend to make the set limit functional plus add an update limit function, then edit options for income and expenses
+
