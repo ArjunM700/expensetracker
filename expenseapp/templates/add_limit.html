@@ -1,31 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker | Set Budget Limit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-base: #09090b;
-            --bg-surface: #18181b;
-            --bg-surface-soft: #202024;
-            --bg-input: #121215;
-            --border-color: #27272a;
-            --border-focus: #52525b;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --primary: #f4f4f5;
-            --primary-hover: #e4e4e7;
-            --btn-text: #09090b;
-            --danger: #ef4444;
-            --radius: 14px;
-            --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+            /* Corporate Light Theme Variables */
+            --brand-primary: #2563eb;
+            --brand-primary-hover: #1d4ed8;
+
+            --bg-base: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-input: #ffffff;
+
+            --border-color: #cbd5e1;
+            --border-dark: #0f172a; /* Clear dark border */
+            --border-focus: #2563eb;
+
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            
+            --danger: #dc2626;
+            --danger-bg: #fef2f2;
+            --danger-border: #fecaca;
+            
+            --limit-color: #8b5cf6; /* Purple for budget limit context */
+            --limit-bg: #f5f3ff;
+            --limit-border: #ede9fe;
+
+            --sidebar-width: 260px;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            
+            /* Distinct shadow for separation */
+            --shadow-distinct: 0 8px 16px rgba(0, 0, 0, 0.08);
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -41,143 +56,98 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
         }
 
-        /* Shared Navbar */
-        .navbar {
-            background-color: var(--bg-surface);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .brand-logo {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .brand-logo span {
-            color: #71717a;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 9px;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-btn-secondary {
-            color: var(--text-muted);
-            border: 1px solid transparent;
-        }
-
-        .nav-btn-secondary:hover {
-            color: var(--text-main);
-            background: var(--bg-surface-soft);
-            border-color: var(--border-color);
-        }
-
-        .nav-btn-primary {
-            background: var(--primary);
-            color: var(--btn-text);
-        }
-
-        .nav-btn-primary:hover {
-            background: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .nav-btn-danger {
-            color: var(--danger);
-            border: 1px solid transparent;
-        }
-
-        .nav-btn-danger:hover {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.25);
-        }
-
-        /* Layout Container */
-        .page-container {
+        /* Offset wrapper for left sidebar */
+        .layout-wrapper {
+            margin-left: var(--sidebar-width);
             flex: 1;
+            min-width: 0;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 32px 20px;
         }
 
         .form-card {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-distinct);
             width: 100%;
-            max-width: 440px;
-            padding: 36px;
+            max-width: 460px;
+            padding: 36px 32px;
+            position: relative;
         }
 
         .card-header {
             margin-bottom: 26px;
         }
 
+        .badge-limit {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--limit-color);
+            background: var(--limit-bg);
+            border: 1px solid var(--limit-border);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
         .card-title {
-            font-size: 22px;
+            font-size: 1.55rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            color: var(--text-main);
+            letter-spacing: -0.4px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .card-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 6px;
+        .card-title i {
+            color: var(--limit-color);
+            font-size: 1.25rem;
         }
 
+        .card-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* Form Controls */
         .form-group {
             margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #d4d4d8;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
 
-        /* Form Fields */
+        /* Target Django's auto-rendered input and select fields */
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 13px 16px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
+            font-weight: 600;
             background: var(--bg-input);
             color: var(--text-main);
             outline: none;
@@ -185,18 +155,20 @@
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--border-focus);
-            background: var(--bg-surface-soft);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
+        /* Django Form Errors */
         .errorlist {
             list-style: none;
             padding: 0;
             margin-top: 8px;
-            color: #f87171;
-            font-size: 13px;
+            color: var(--danger);
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .errorlist li {
@@ -206,110 +178,105 @@
         }
 
         .errorlist li::before {
-            content: "•";
+            content: "\f071"; /* FontAwesome exclamation-triangle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.75rem;
         }
 
         .non-field-errors {
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.25);
-            border-radius: 8px;
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-border);
+            border-radius: var(--radius-md);
             padding: 12px 14px;
             margin-bottom: 20px;
-            color: #f87171;
-            font-size: 13px;
+            color: var(--danger);
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
+        /* Buttons & Actions */
         .submit-btn {
             width: 100%;
-            background: var(--primary);
-            color: var(--btn-text);
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 15px;
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--border-dark);
+            padding: 13px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 6px;
+            margin-top: 8px;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .submit-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
+            background: var(--brand-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
         }
 
         .cancel-link {
-            display: block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
             text-align: center;
-            font-size: 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
             color: var(--text-muted);
             text-decoration: none;
-            margin-top: 16px;
+            margin-top: 14px;
+            padding: 8px;
+            border-radius: var(--radius-md);
             transition: var(--transition);
         }
 
         .cancel-link:hover {
-            color: var(--text-main);
+            color: var(--brand-primary);
+            background: #e2e8f0;
         }
 
-        @media (max-width: 640px) {
-            .navbar {
+        @media (max-width: 820px) {
+            body {
                 flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
             }
 
-            .nav-links {
-                width: 100%;
-                justify-content: space-between;
-                flex-wrap: wrap;
+            .layout-wrapper {
+                margin-left: 0;
+                padding: 24px 16px;
+            }
+
+            .form-card {
+                padding: 28px 20px;
             }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Shared Navigation -->
-    <nav class="navbar">
-        <a href="{% url 'home' %}" class="brand-logo">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                <path d="M16 12h.01"></path>
-                <path d="M2 10h20"></path>
-            </svg>
-            Expense Tracker<span>.</span>
-        </a>
+    <!-- Shared Left Navigation -->
+    {% include 'navbar.html' %}
 
-        <div class="nav-links">
-            <a href="{% url 'add_expense' %}" class="nav-btn nav-btn-primary">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                Add Expense
-            </a>
-            <a href="{% url 'profile' %}" class="nav-btn nav-btn-secondary">Profile</a>
-            <a href="{% url 'logout' %}" class="nav-btn nav-btn-danger">Logout</a>
-        </div>
-    </nav>
-
-    <!-- Form Container -->
-    <div class="page-container">
+    <!-- Main Centered Form Area -->
+    <div class="layout-wrapper">
         <div class="form-card">
+            
             <div class="card-header">
+                <div class="badge-limit">
+                    <i class="fas fa-bullseye"></i> Budget Control
+                </div>
                 <h1 class="card-title">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
-                        stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-main);">
-                        <path d="M12 2v20"></path>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
+                    <i class="fas fa-shield-halved"></i>
                     Set Budget Limit
                 </h1>
-                <p class="card-subtitle">Set your maximum spending threshold to manage overspending.</p>
+                <p class="card-subtitle">Set your maximum spending threshold to manage overspending and stay on track.</p>
             </div>
 
             <form method="POST">
@@ -321,10 +288,13 @@
                 </div>
                 {% endif %}
 
+                <!-- Automatically render Django form fields -->
                 {% for field in form %}
                 <div class="form-group">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    
                     {{ field }}
+                    
                     {% if field.errors %}
                     <ul class="errorlist">
                         {% for error in field.errors %}
@@ -335,12 +305,18 @@
                 </div>
                 {% endfor %}
 
-                <button type="submit" class="submit-btn">Save Limit</button>
-                <a href="{% url 'home' %}" class="cancel-link">Back to Dashboard</a>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-check"></i>
+                    Save Limit
+                </button>
+
+                <a href="{% url 'settings' %}" class="cancel-link">
+                    <i class="fas fa-arrow-left"></i> Back to Settings
+                </a>
             </form>
+
         </div>
     </div>
 
 </body>
-
 </html>

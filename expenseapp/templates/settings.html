@@ -7,29 +7,35 @@
     <title>Expense Tracker | Settings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --brand-dark: #086288;
-            --brand-mid: #4D8DBA;
-            --brand-ice: #97D7FF;
-            --brand-cream: #FFEFC4;
+            /* Corporate Light Theme Variables */
+            --brand-primary: #2563eb;       
+            --brand-primary-hover: #1d4ed8;
+            --brand-accent: #eff6ff;
 
-            --bg-base: #06151f;
-            --bg-surface: #0b1f2e;
-            --bg-surface-elevated: #10293d;
-            --border-color: rgba(77, 141, 186, 0.22);
-            --border-highlight: rgba(151, 215, 255, 0.35);
+            --bg-base: #f1f5f9;             
+            --bg-surface: #ffffff;          
+            --bg-surface-hover: #f8fafc;
+            
+            --border-color: #e2e8f0;
+            --border-dark: #0f172a; /* Clear dark border */
 
-            --text-main: #f4f9fc;
-            --text-muted: #8ca5b5;
-            --danger: #f87171;
+            --text-main: #0f172a;           
+            --text-muted: #64748b;          
+            --danger: #dc2626;            
+            --danger-bg: #fef2f2;
 
             --sidebar-width: 260px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            
+            /* Enhanced shadows for clear depth */
+            --shadow-distinct: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-distinct-hover: 0 12px 20px rgba(0, 0, 0, 0.12);
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -37,6 +43,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, .info-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
@@ -45,11 +55,6 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            background-image: 
-                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.18) 0%, transparent 60%),
-                radial-gradient(#10293d 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px;
         }
 
         /* Offset wrapper for left sidebar */
@@ -77,12 +82,13 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            margin-bottom: 8px;
         }
 
         .settings-header h1 {
             font-size: 1.85rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
@@ -90,13 +96,13 @@
         }
 
         .settings-header h1 i {
-            color: var(--brand-ice);
+            color: var(--brand-primary);
             font-size: 1.45rem;
         }
 
         .settings-header p {
             color: var(--text-muted);
-            font-size: 0.94rem;
+            font-size: 0.95rem;
             line-height: 1.5;
         }
 
@@ -104,66 +110,65 @@
         .settings-group {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
         .settings-card {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
-            padding: 20px 22px;
+            padding: 20px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: var(--text-main);
             transition: var(--transition);
-            box-shadow: 0 4px 20px -6px rgba(2, 8, 14, 0.45);
+            box-shadow: var(--shadow-distinct);
         }
 
         .settings-card:hover {
-            border-color: var(--border-highlight);
-            background: var(--bg-surface-elevated);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 26px -8px rgba(2, 8, 14, 0.7);
+            background: var(--bg-surface-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-distinct-hover);
         }
 
         .settings-left {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 20px;
         }
 
         .icon-box {
             width: 48px;
             height: 48px;
             border-radius: var(--radius-md);
-            background: rgba(77, 141, 186, 0.12);
-            border: 1px solid rgba(77, 141, 186, 0.25);
+            background: var(--brand-accent);
+            border: 1px solid var(--border-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--brand-ice);
+            color: var(--brand-primary);
             font-size: 1.15rem;
             flex-shrink: 0;
             transition: var(--transition);
         }
 
         .settings-card:hover .icon-box {
-            background: rgba(151, 215, 255, 0.18);
-            border-color: var(--brand-ice);
-            color: var(--brand-cream);
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-color: var(--border-dark);
         }
 
         .info-title {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 3px;
+            color: var(--text-main);
+            margin-bottom: 4px;
         }
 
         .info-desc {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             color: var(--text-muted);
         }
 
@@ -171,30 +176,23 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: rgba(6, 21, 31, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--brand-mid);
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 1rem;
             transition: var(--transition);
             flex-shrink: 0;
         }
 
         .settings-card:hover .arrow-wrap {
-            color: var(--brand-cream);
-            background: rgba(77, 141, 186, 0.25);
+            color: var(--brand-primary);
             transform: translateX(4px);
         }
 
         /* Destructive / Log Out Card Variation */
-        .settings-card.logout-card {
-            border-color: rgba(248, 113, 113, 0.22);
-        }
-
         .settings-card.logout-card .icon-box {
-            background: rgba(239, 68, 68, 0.12);
-            border-color: rgba(239, 68, 68, 0.25);
+            background: var(--danger-bg);
             color: var(--danger);
         }
 
@@ -203,18 +201,18 @@
         }
 
         .settings-card.logout-card:hover {
-            border-color: rgba(248, 113, 113, 0.45);
-            background: rgba(239, 68, 68, 0.08);
+            background: #fffafa; /* Very light red tint */
+            border-color: var(--danger);
         }
 
         .settings-card.logout-card:hover .icon-box {
-            background: rgba(239, 68, 68, 0.22);
-            color: #fca5a5;
+            background: var(--danger);
+            color: #ffffff;
+            border-color: var(--danger);
         }
 
         .settings-card.logout-card:hover .arrow-wrap {
             color: var(--danger);
-            background: rgba(239, 68, 68, 0.18);
         }
 
         /* Mobile Responsive */
@@ -232,13 +230,21 @@
             }
 
             .settings-card {
-                padding: 16px 18px;
+                padding: 16px 20px;
+            }
+
+            .settings-left {
+                gap: 16px;
             }
 
             .icon-box {
                 width: 42px;
                 height: 42px;
                 font-size: 1rem;
+            }
+            
+            .info-title {
+                font-size: 0.95rem;
             }
         }
     </style>

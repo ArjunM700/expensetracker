@@ -8,31 +8,35 @@
     <title>Expense Tracker | All Expenses</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --brand-dark: #086288;
-            --brand-mid: #4D8DBA;
-            --brand-ice: #97D7FF;
-            --brand-cream: #FFEFC4;
+            /* Corporate Light Theme Variables */
+            --brand-primary: #2563eb;
+            --brand-primary-hover: #1d4ed8;
 
-            --bg-base: #06151f;
-            --bg-surface: #0b1f2e;
-            --bg-surface-elevated: #10293d;
-            --bg-input: #081723;
-            --border-color: rgba(77, 141, 186, 0.22);
-            --border-highlight: rgba(151, 215, 255, 0.35);
+            --bg-base: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-input: #ffffff;
 
-            --text-main: #f4f9fc;
-            --text-muted: #8ca5b5;
-            --expense-red: #f87171;
+            --border-color: #cbd5e1;
+            --border-dark: #0f172a; /* Clear dark border */
+            --border-focus: #2563eb;
+
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --expense-red: #dc2626;
 
             --sidebar-width: 260px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+            
+            /* Distinct shadow for separation */
+            --shadow-distinct: 0 8px 16px rgba(0, 0, 0, 0.08);
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -48,11 +52,6 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            background-image: 
-                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.18) 0%, transparent 60%),
-                radial-gradient(#10293d 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px;
         }
 
         .layout-wrapper {
@@ -86,7 +85,7 @@
         .header-left h1 {
             font-size: 1.75rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
@@ -94,7 +93,7 @@
         }
 
         .header-left h1 i {
-            color: var(--brand-ice);
+            color: var(--expense-red);
             font-size: 1.4rem;
         }
 
@@ -118,26 +117,25 @@
             border-radius: var(--radius-md);
             font-size: 0.88rem;
             font-weight: 700;
-            background: rgba(77, 141, 186, 0.14);
-            border: 1px solid var(--border-color);
-            color: var(--brand-ice);
+            background: #f8fafc;
+            border: 1px solid var(--border-dark);
+            color: var(--text-main);
             cursor: pointer;
             transition: var(--transition);
             position: relative;
         }
 
         .btn-filter-trigger:hover {
-            background: rgba(151, 215, 255, 0.2);
-            border-color: var(--brand-ice);
-            color: #ffffff;
+            background: #e2e8f0;
+            color: var(--brand-primary);
         }
 
         .active-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--brand-cream);
-            box-shadow: 0 0 8px var(--brand-cream);
+            background: var(--brand-primary);
+            box-shadow: 0 0 8px var(--brand-primary);
         }
 
         .btn-new-expense {
@@ -149,16 +147,17 @@
             font-size: 0.88rem;
             font-weight: 700;
             text-decoration: none;
-            background: var(--brand-cream);
-            color: #06151f;
-            box-shadow: 0 4px 14px rgba(255, 239, 196, 0.15);
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: var(--transition);
         }
 
         .btn-new-expense:hover {
-            background: #ffffff;
+            background: var(--brand-primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 239, 196, 0.25);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
         }
 
         /* Active Filters Pill Bar */
@@ -168,10 +167,11 @@
             gap: 8px;
             flex-wrap: wrap;
             padding: 10px 14px;
-            background: rgba(11, 31, 46, 0.55);
-            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-md);
             font-size: 0.82rem;
+            box-shadow: var(--shadow-distinct);
         }
 
         .filter-tag {
@@ -180,23 +180,25 @@
             gap: 6px;
             padding: 4px 10px;
             border-radius: 999px;
-            background: rgba(151, 215, 255, 0.12);
-            color: var(--brand-ice);
-            border: 1px solid rgba(151, 215, 255, 0.2);
+            background: #eff6ff;
+            color: var(--brand-primary);
+            border: 1px solid #bfdbfe;
             font-weight: 600;
         }
 
         /* Table Panel */
         .panel {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
             padding: 24px;
-            box-shadow: 0 16px 36px -12px rgba(2, 8, 14, 0.5);
+            box-shadow: var(--shadow-distinct);
         }
 
         .table-responsive {
             overflow-x: auto;
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-md);
         }
 
         table {
@@ -213,23 +215,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(6, 21, 31, 0.4);
-        }
-
-        th:first-child {
-            border-top-left-radius: var(--radius-sm);
-            border-bottom-left-radius: var(--radius-sm);
-        }
-
-        th:last-child {
-            border-top-right-radius: var(--radius-sm);
-            border-bottom-right-radius: var(--radius-sm);
+            border-bottom: 1px solid var(--border-dark);
+            background: #f8fafc;
         }
 
         td {
             padding: 16px;
-            border-bottom: 1px solid rgba(77, 141, 186, 0.12);
+            border-bottom: 1px solid var(--border-color);
             color: var(--text-main);
             vertical-align: middle;
         }
@@ -243,7 +235,7 @@
         }
 
         tr:hover td {
-            background-color: rgba(77, 141, 186, 0.08);
+            background-color: #f8fafc;
         }
 
         .badge-type {
@@ -254,9 +246,9 @@
             border-radius: 999px;
             font-size: 0.78rem;
             font-weight: 600;
-            background: rgba(151, 215, 255, 0.1);
-            color: var(--brand-ice);
-            border: 1px solid rgba(151, 215, 255, 0.2);
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
         }
 
         .expense-amount {
@@ -284,9 +276,9 @@
             gap: 6px;
             padding: 6px 12px;
             border-radius: var(--radius-sm);
-            background: rgba(77, 141, 186, 0.12);
-            border: 1px solid rgba(77, 141, 186, 0.25);
-            color: var(--brand-ice);
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--brand-primary);
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 600;
@@ -294,9 +286,8 @@
         }
 
         .edit-action-btn:hover {
-            background: rgba(151, 215, 255, 0.2);
-            border-color: var(--brand-ice);
-            color: #ffffff;
+            background: #eff6ff;
+            border-color: var(--brand-primary);
             transform: translateY(-1px);
         }
 
@@ -306,8 +297,8 @@
             gap: 6px;
             padding: 6px 12px;
             border-radius: var(--radius-sm);
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            background: #fef2f2;
+            border: 1px solid #fecaca;
             color: var(--expense-red);
             font-size: 0.8rem;
             font-weight: 600;
@@ -316,9 +307,8 @@
         }
 
         .delete-action-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #ef4444;
-            color: #fca5a5;
+            background: #fee2e2;
+            border-color: var(--expense-red);
             transform: translateY(-1px);
         }
 
@@ -332,8 +322,9 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: rgba(77, 141, 186, 0.12);
-            color: var(--brand-ice);
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -342,7 +333,7 @@
         }
 
         .empty-state h3 {
-            color: #ffffff;
+            color: var(--text-main);
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 6px;
@@ -359,8 +350,8 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(4, 16, 25, 0.75);
-            backdrop-filter: blur(6px);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -374,11 +365,11 @@
 
         .modal-dialog {
             background: var(--bg-surface);
-            border: 1px solid var(--border-highlight);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
             width: 100%;
             max-width: 540px;
-            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             animation: modalFadeIn 0.22s ease-out;
             overflow: hidden;
         }
@@ -388,6 +379,7 @@
                 opacity: 0;
                 transform: scale(0.96) translateY(-8px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -400,12 +392,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: #f8fafc;
         }
 
         .modal-header h2 {
             font-size: 1.15rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -423,8 +416,8 @@
         }
 
         .modal-close-btn:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            background: #e2e8f0;
         }
 
         .modal-body {
@@ -458,7 +451,7 @@
         }
 
         .modal-field label i {
-            color: var(--brand-ice);
+            color: var(--brand-primary);
         }
 
         .modal-field input,
@@ -474,30 +467,15 @@
             transition: var(--transition);
         }
 
-        .modal-field select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234D8DBA' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            padding-right: 32px;
-            cursor: pointer;
-        }
-
-        .modal-field select option {
-            background: var(--bg-surface-elevated);
-            color: var(--text-main);
-        }
-
         .modal-field input:focus,
         .modal-field select:focus {
-            border-color: var(--brand-mid);
-            background: var(--bg-surface-elevated);
-            box-shadow: 0 0 0 3px rgba(77, 141, 186, 0.18);
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
         .modal-footer {
             padding: 18px 24px;
-            background: rgba(6, 21, 31, 0.6);
+            background: #f8fafc;
             border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -521,16 +499,16 @@
         }
 
         .btn-modal-reset:hover {
-            color: var(--brand-ice);
-            border-color: var(--brand-ice);
+            color: var(--text-main);
+            border-color: var(--text-muted);
         }
 
         .btn-modal-submit {
             padding: 10px 22px;
             border-radius: var(--radius-sm);
-            background: var(--brand-cream);
-            color: #06151f;
-            border: none;
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--border-dark);
             font-size: 0.88rem;
             font-weight: 700;
             cursor: pointer;
@@ -541,7 +519,7 @@
         }
 
         .btn-modal-submit:hover {
-            background: #ffffff;
+            background: var(--brand-primary-hover);
             transform: translateY(-1px);
         }
 
@@ -567,7 +545,8 @@
                 width: 100%;
             }
 
-            .btn-filter-trigger, .btn-new-expense {
+            .btn-filter-trigger,
+            .btn-new-expense {
                 flex: 1;
                 justify-content: center;
             }
@@ -603,7 +582,7 @@
                         <i class="fas fa-sliders"></i>
                         <span>Filter & Sort</span>
                         {% if min_amount or max_amount or start_date or end_date or sort_by != 'date_desc' %}
-                            <span class="active-dot" title="Active filters applied"></span>
+                        <span class="active-dot" title="Active filters applied"></span>
                         {% endif %}
                     </button>
 
@@ -615,33 +594,34 @@
 
             <!-- Active Filters Summary (Only renders if filters are applied) -->
             {% if min_amount or max_amount or start_date or end_date or sort_by != 'date_desc' %}
-                <div class="active-filters-bar">
-                    <span style="color: var(--text-muted); font-weight: 700;">Active filters:</span>
-                    {% if min_amount %}
-                        <span class="filter-tag">Min: ₹{{ min_amount }}</span>
+            <div class="active-filters-bar">
+                <span style="color: var(--text-muted); font-weight: 700;">Active filters:</span>
+                {% if min_amount %}
+                <span class="filter-tag">Min: ₹{{ min_amount }}</span>
+                {% endif %}
+                {% if max_amount %}
+                <span class="filter-tag">Max: ₹{{ max_amount }}</span>
+                {% endif %}
+                {% if start_date %}
+                <span class="filter-tag">From: {{ start_date }}</span>
+                {% endif %}
+                {% if end_date %}
+                <span class="filter-tag">To: {{ end_date }}</span>
+                {% endif %}
+                {% if sort_by != 'date_desc' %}
+                <span class="filter-tag">
+                    Sort:
+                    {% if sort_by == 'date_asc' %}Oldest First
+                    {% elif sort_by == 'amount_desc' %}High to Low
+                    {% elif sort_by == 'amount_asc' %}Low to High
                     {% endif %}
-                    {% if max_amount %}
-                        <span class="filter-tag">Max: ₹{{ max_amount }}</span>
-                    {% endif %}
-                    {% if start_date %}
-                        <span class="filter-tag">From: {{ start_date }}</span>
-                    {% endif %}
-                    {% if end_date %}
-                        <span class="filter-tag">To: {{ end_date }}</span>
-                    {% endif %}
-                    {% if sort_by != 'date_desc' %}
-                        <span class="filter-tag">
-                            Sort: 
-                            {% if sort_by == 'date_asc' %}Oldest First
-                            {% elif sort_by == 'amount_desc' %}High to Low
-                            {% elif sort_by == 'amount_asc' %}Low to High
-                            {% endif %}
-                        </span>
-                    {% endif %}
-                    <a href="{% url 'all_expenses' %}" style="margin-left: auto; color: var(--brand-cream); text-decoration: none; font-weight: 700; font-size: 0.8rem;">
-                        <i class="fas fa-xmark"></i> Clear All
-                    </a>
-                </div>
+                </span>
+                {% endif %}
+                <a href="{% url 'all_expenses' %}"
+                    style="margin-left: auto; color: var(--text-main); text-decoration: none; font-weight: 700; font-size: 0.8rem;">
+                    <i class="fas fa-xmark"></i> Clear All
+                </a>
+            </div>
             {% endif %}
 
             <!-- Table Panel -->
@@ -697,7 +677,8 @@
                         </div>
                         <h3>No matching expenses found</h3>
                         <p>No transactions matched your filter criteria. Try adjusting the thresholds or dates.</p>
-                        <a href="{% url 'all_expenses' %}" class="btn-modal-reset" style="display: inline-flex; margin-top: 10px;">
+                        <a href="{% url 'all_expenses' %}" class="btn-modal-reset"
+                            style="display: inline-flex; margin-top: 10px; border-color: var(--border-color);">
                             <i class="fas fa-rotate-left"></i> Reset All Filters
                         </a>
                     </div>
@@ -713,7 +694,7 @@
         <div class="modal-dialog">
             <div class="modal-header">
                 <h2>
-                    <i class="fas fa-sliders" style="color: var(--brand-ice);"></i>
+                    <i class="fas fa-sliders" style="color: var(--brand-primary);"></i>
                     Filter & Sort Expenses
                 </h2>
                 <button type="button" class="modal-close-btn" id="closeFilterBtn" aria-label="Close dialog">
@@ -729,13 +710,15 @@
                             <label for="min_amount">
                                 <i class="fas fa-arrow-down-short-wide"></i> Min Amount
                             </label>
-                            <input type="number" id="min_amount" name="min_amount" step="any" placeholder="₹0" value="{{ min_amount }}">
+                            <input type="number" id="min_amount" name="min_amount" step="any" placeholder="₹0"
+                                value="{{ min_amount }}">
                         </div>
                         <div class="modal-field">
                             <label for="max_amount">
                                 <i class="fas fa-arrow-up-wide-short"></i> Max Amount
                             </label>
-                            <input type="number" id="max_amount" name="max_amount" step="any" placeholder="₹ No limit" value="{{ max_amount }}">
+                            <input type="number" id="max_amount" name="max_amount" step="any" placeholder="₹ No limit"
+                                value="{{ max_amount }}">
                         </div>
                     </div>
 
@@ -761,6 +744,7 @@
                             <i class="fas fa-arrow-down-a-z"></i> Sort Ordering
                         </label>
                         <select id="sort" name="sort">
+                            <!-- FIXED THE DJANGO TEMPLATE SYNTAX ERROR HERE BY ADDING SPACES AROUND '==' -->
                             <option value="date_desc" {% if sort_by == 'date_desc' %}selected{% endif %}>Date: Newest First</option>
                             <option value="date_asc" {% if sort_by == 'date_asc' %}selected{% endif %}>Date: Oldest First</option>
                             <option value="amount_desc" {% if sort_by == 'amount_desc' %}selected{% endif %}>Amount: High to Low (Largest)</option>
@@ -818,5 +802,4 @@
     </script>
 
 </body>
-
 </html>

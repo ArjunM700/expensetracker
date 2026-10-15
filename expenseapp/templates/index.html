@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,54 +23,50 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#052b3d',        /* Extra deep base */
-                            primary: '#086288',     /* Requested Palette 1 */
-                            mid: '#4D8DBA',         /* Requested Palette 2 */
-                            light: '#97D7FF',       /* Requested Palette 3 */
-                            cream: '#FFEFC4',       /* Requested Palette 4 */
-                            navySurface: '#0b384f', /* Elevated card surface */
-                            darkSurface: '#072433'
+                            base: '#030b25',
+                            primary: '#2563eb',
+                            primaryHover: '#1d4ed8',
+                            accent: '#38bdf8',
+                            textMain: '#0f172a',
+                            textMuted: '#64748b',
+                            border: 'rgba(255, 255, 255, 0.1)',
+                            glass: 'rgba(255, 255, 255, 0.05)',
                         }
                     },
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    }
+                        sans: ['"Inter"', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
                 }
             }
         }
     </script>
 
     <style>
-        :root {
-            --primary: #086288;
-            --mid-blue: #4D8DBA;
-            --ice-cyan: #97D7FF;
-            --warm-cream: #FFEFC4;
-        }
-
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(180deg, #041c28 0%, #083449 50%, #051d2a 100%);
-            color: #f1f5f9;
+            background-color: #030b25; /* Base for hero, overridden in sections below */
+            color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Cards */
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Glassmorphic Cards for Hero */
         .glass-card {
-            background: rgba(8, 98, 136, 0.22);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(151, 215, 255, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .glass-card:hover {
-            border-color: rgba(151, 215, 255, 0.45);
-        }
-
-        .glass-nav {
-            background: rgba(4, 28, 40, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(151, 215, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 100, 255, 0.15);
         }
 
         /* Custom Scrollbar */
@@ -77,231 +74,165 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #041c28;
+            background: #f8fafc;
         }
         ::-webkit-scrollbar-thumb {
-            background: #4D8DBA;
+            background: #cbd5e1;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #97D7FF;
+            background: #2563eb;
         }
 
-        /* Ambient Glow Gradients */
-        .glow-orb-1 {
+        /* Abstract Hero Background Lines */
+        .hero-bg {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(77, 141, 186, 0.35) 0%, rgba(8, 98, 136, 0) 70%);
-            top: -100px;
-            left: -150px;
-            pointer-events: none;
+            inset: 0;
             z-index: 0;
+            background: linear-gradient(120deg, #020617 0%, #002266 40%, #0044ff 80%, #001133 100%);
+            overflow: hidden;
         }
-
-        .glow-orb-2 {
+        .hero-bg::before {
+            content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(151, 215, 255, 0.22) 0%, rgba(8, 98, 136, 0) 70%);
-            top: 20%;
-            right: -200px;
-            pointer-events: none;
-            z-index: 0;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(255, 255, 255, 0.02) 40px,
+                    rgba(255, 255, 255, 0.02) 80px
+                );
+            transform: rotate(-15deg);
         }
-
-        /* Progress Bar Animation */
-        @keyframes fillProgress {
-            from { width: 0%; }
-            to { width: var(--target-width); }
-        }
-        .progress-animate {
-            animation: fillProgress 1.4s ease-out forwards;
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(56, 189, 248, 0.3) 0%, transparent 50%);
         }
     </style>
 </head>
 
-<body class="relative min-h-screen selection:bg-brand-light selection:text-brand-dark">
+<body class="relative min-h-screen selection:bg-brand-primary selection:text-white">
 
-    <div class="glow-orb-1"></div>
-    <div class="glow-orb-2"></div>
+    <!-- Centered Glass Navbar (Maintains dark theme so it remains visible over white sections) -->
+    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-6xl glass-card bg-[#030b25]/80 rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shadow-blue-900/20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 group">
+            <i class="fas fa-wallet text-xl text-brand-accent"></i>
+            <span class="text-lg font-heading font-bold tracking-tight text-white hidden sm:block">
+                ExpenseTracker
+            </span>
+        </a>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-light flex items-center justify-center text-brand-dark shadow-lg shadow-brand-primary/30 group-hover:scale-105 transition-transform">
-                        <i class="fas fa-wallet text-xl text-[#052b3d]"></i>
-                    </div>
-                    <span class="text-xl font-bold tracking-tight text-white group-hover:text-brand-light transition-colors">
-                        Expense<span class="text-brand-light">Tracker</span><span class="text-brand-cream">.</span>
-                    </span>
-                </a>
+        <!-- Desktop Navigation Links (Pill Style) -->
+        <div class="hidden md:flex items-center bg-white/10 rounded-full px-2 py-1 gap-1 border border-white/10">
+            <a href="#features" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-300 hover:text-white transition-colors">Features</a>
+            <a href="#about" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-300 hover:text-white transition-colors">About Us</a>
+            <a href="#security" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-300 hover:text-white transition-colors">Security</a>
+        </div>
 
-                <!-- Desktop Navigation Links -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#overview" class="text-sm font-semibold text-slate-300 hover:text-brand-light transition-colors">Overview</a>
-                    <a href="#analytics" class="text-sm font-semibold text-slate-300 hover:text-brand-light transition-colors">Analytics</a>
-                    <a href="#security" class="text-sm font-semibold text-slate-300 hover:text-brand-light transition-colors">Security</a>
-                    <a href="#contact" class="text-sm font-semibold text-slate-300 hover:text-brand-light transition-colors">Support</a>
-                </div>
-
-                <!-- Desktop CTA Action Buttons -->
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="{% url 'login' %}" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-200 border border-brand-mid/40 hover:bg-brand-mid/20 hover:border-brand-light transition-all duration-200">
-                        <i class="fas fa-sign-in-alt mr-2 text-brand-light"></i> Log In
-                    </a>
-                    <a href="{% url 'register' %}" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-brand-cream text-brand-dark hover:bg-white hover:shadow-lg hover:shadow-brand-cream/20 transform hover:-translate-y-0.5 transition-all duration-200">
-                        <i class="fas fa-user-plus mr-1.5"></i> Get Started
-                    </a>
-                </div>
-
-                <!-- Mobile Hamburger Toggle -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" type="button" class="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-primary/40 focus:outline-none" aria-label="Toggle menu">
-                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
-                    </button>
-                </div>
-            </div>
+        <!-- Right Actions -->
+        <div class="flex items-center gap-3">
+            <a href="{% url 'login' %}" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white transition-colors" title="Log In">
+                <i class="fas fa-user text-sm"></i>
+            </a>
+            <a href="#mobile-menu-btn" id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white transition-colors">
+                <i class="fas fa-bars text-sm" id="menu-icon"></i>
+            </a>
         </div>
 
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-brand-mid/20 px-4 pt-3 pb-6 space-y-3">
-            <a href="#overview" class="block py-2 text-base font-medium text-slate-200 hover:text-brand-light">Overview</a>
-            <a href="#analytics" class="block py-2 text-base font-medium text-slate-200 hover:text-brand-light">Analytics</a>
-            <a href="#security" class="block py-2 text-base font-medium text-slate-200 hover:text-brand-light">Security</a>
-            <a href="#contact" class="block py-2 text-base font-medium text-slate-200 hover:text-brand-light">Contact & Support</a>
-            <div class="pt-4 border-t border-brand-mid/30 flex flex-col gap-2">
-                <a href="{% url 'login' %}" class="w-full text-center py-2.5 rounded-xl text-sm font-semibold border border-brand-mid/40 text-slate-200 hover:bg-brand-mid/20">Log In</a>
-                <a href="{% url 'register' %}" class="w-full text-center py-2.5 rounded-xl text-sm font-bold bg-brand-cream text-brand-dark hover:bg-white">Get Started</a>
-            </div>
+        <div id="mobile-menu" class="absolute top-16 left-0 w-full hidden md:hidden glass-card bg-[#030b25]/95 rounded-2xl p-4 mt-2 border border-white/10 flex-col gap-2 shadow-xl">
+            <a href="#features" class="block py-2 text-sm font-medium text-white hover:text-brand-accent">Features</a>
+            <a href="#about" class="block py-2 text-sm font-medium text-white hover:text-brand-accent">About Us</a>
+            <a href="#security" class="block py-2 text-sm font-medium text-white hover:text-brand-accent">Security</a>
+            <hr class="border-white/10 my-2">
+            <a href="{% url 'login' %}" class="block py-2 text-sm font-medium text-brand-accent">Log In</a>
+            <a href="{% url 'register' %}" class="block py-2 text-sm font-medium text-brand-accent">Get Started</a>
         </div>
     </nav>
 
-    <header class="relative pt-36 pb-20 md:pt-44 md:pb-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-end pb-12 pt-32 lg:pt-0 lg:justify-center overflow-hidden">
+        <div class="hero-bg"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mt-24">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                
-                <!-- Left Hero Content -->
-                <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-light/30 bg-brand-primary/30 text-brand-light text-xs font-semibold tracking-wide uppercase">
-                        <span class="w-2 h-2 rounded-full bg-brand-cream animate-pulse"></span>
-                        Precision Money Management
-                    </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                        Take full command of your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light via-[#caedff] to-brand-cream">spending & savings.</span>
+                <!-- Left Hero Content -->
+                <div class="lg:col-span-7 space-y-6 text-left">
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold tracking-tight text-white leading-[1.1]">
+                        Track every penny.<br>Master your finances.
                     </h1>
 
-                    <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                        Monitor everyday expenditures, automate category budgets, gain instant visual analytics, and achieve your financial freedom with effortless ease.
+                    <p class="text-lg sm:text-xl text-slate-300 max-w-xl leading-relaxed font-light">
+                        Log your daily incomes and expenses, instantly view weekly and monthly summaries, and filter your financial history with precision.
                     </p>
 
                     <!-- CTAs -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                        <a href="{% url 'register' %}" class="px-8 py-3.5 rounded-xl font-bold bg-brand-cream text-brand-dark text-base hover:bg-white hover:scale-105 shadow-xl shadow-brand-cream/15 transition-all duration-200 inline-flex items-center gap-2">
-                            <i class="fas fa-rocket"></i> Get Started Free
+                    <div class="flex flex-wrap items-center gap-6 pt-4">
+                        <a href="{% url 'register' %}" class="px-8 py-3.5 rounded-full font-semibold bg-white text-brand-base text-sm hover:bg-slate-200 transition-all duration-200 flex items-center gap-2">
+                            Create Free Account <i class="fas fa-arrow-right text-xs"></i>
                         </a>
-                        <a href="#overview" class="px-7 py-3.5 rounded-xl font-semibold border border-brand-mid/50 text-slate-100 hover:border-brand-light hover:bg-brand-mid/20 transition-all duration-200 inline-flex items-center gap-2">
-                            <i class="fas fa-play-circle text-brand-light"></i> Explore Features
+                        <a href="#features" class="text-white text-sm font-medium hover:text-brand-accent transition-colors flex items-center gap-2">
+                            See How It Works <i class="fas fa-arrow-down text-xs opacity-70"></i>
                         </a>
-                    </div>
-
-                    <!-- Metrics bar -->
-                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-mid/20 max-w-lg mx-auto lg:mx-0">
-                        <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-brand-light">$3.8M+</div>
-                            <div class="text-xs sm:text-sm text-slate-400 font-medium">Tracked</div>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-brand-cream">50,000+</div>
-                            <div class="text-xs sm:text-sm text-slate-400 font-medium">Active Users</div>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-white">99.9%</div>
-                            <div class="text-xs sm:text-sm text-slate-400 font-medium">System Uptime</div>
-                        </div>
                     </div>
                 </div>
 
                 <!-- Right Hero Floating Dashboard Mockup -->
                 <div class="lg:col-span-5 relative">
-                    <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                        <div class="flex items-center justify-between pb-6 border-b border-brand-mid/30">
-                            <div>
-                                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Active Balance</p>
-                                <h3 class="text-3xl font-extrabold text-white mt-1">$4,850.40</h3>
+                    <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
+                        
+                        <!-- Card 1: Balance & Totals -->
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 mb-4 backdrop-blur-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-heading text-white">Current Balance</h3>
+                                <span class="text-brand-accent text-xs flex items-center gap-1"><i class="fas fa-wallet"></i> Live</span>
                             </div>
-                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold flex items-center gap-1">
-                                <i class="fas fa-arrow-trend-up"></i> +14.2%
-                            </span>
-                        </div>
-
-                        <!-- Mini quick stats -->
-                        <div class="grid grid-cols-2 gap-3 my-5">
-                            <div class="p-3.5 rounded-2xl bg-brand-darkSurface/80 border border-brand-mid/20">
-                                <div class="flex items-center gap-2 text-xs text-slate-400 font-medium mb-1">
-                                    <i class="fas fa-arrow-down text-brand-light"></i> Monthly Inflow
-                                </div>
-                                <div class="text-lg font-bold text-white">$6,200.00</div>
+                            <div class="flex justify-between items-end">
+                                <div class="text-3xl font-light text-white">$4,850<span class="text-slate-400 text-xl">.00</span></div>
+                                <div class="text-xs text-slate-300 bg-white/10 px-2 py-1 rounded-full">All-Time Net</div>
                             </div>
-                            <div class="p-3.5 rounded-2xl bg-brand-darkSurface/80 border border-brand-mid/20">
-                                <div class="flex items-center gap-2 text-xs text-slate-400 font-medium mb-1">
-                                    <i class="fas fa-arrow-up text-brand-cream"></i> Spent This Month
+                            <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-white/10">
+                                <div>
+                                    <div class="text-xs text-slate-400">Today's Spend</div>
+                                    <div class="text-sm text-white font-medium">$48.50</div>
                                 </div>
-                                <div class="text-lg font-bold text-brand-cream">$1,349.60</div>
+                                <div>
+                                    <div class="text-xs text-slate-400">This Week</div>
+                                    <div class="text-sm text-white font-medium">$342.10</div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Mini Recent Transactions list -->
-                        <div class="space-y-3">
-                            <div class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Recent Logs</div>
+                        <!-- Card 2: Recent Transactions -->
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-lg font-heading text-white">Recent Logs</h3>
+                                <span class="text-slate-400 text-xs"><i class="fas fa-history"></i> Latest 10</span>
+                            </div>
                             
-                            <div class="flex items-center justify-between p-3 rounded-xl bg-brand-darkSurface/50 hover:bg-brand-mid/20 border border-transparent hover:border-brand-mid/30 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-sm">
-                                        <i class="fas fa-utensils"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-bold text-white">Grocery Market</p>
-                                        <p class="text-xs text-slate-400">Food & Dining &bull; Today</p>
-                                    </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <div class="text-sm text-slate-300">Grocery Store</div>
+                                    <div class="text-sm text-white">-$48.50</div>
                                 </div>
-                                <span class="text-sm font-bold text-brand-light">-$48.50</span>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 rounded-xl bg-brand-darkSurface/50 hover:bg-brand-mid/20 border border-transparent hover:border-brand-mid/30 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-brand-light flex items-center justify-center text-sm">
-                                        <i class="fas fa-bolt"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-bold text-white">Electric Utility</p>
-                                        <p class="text-xs text-slate-400">Housing & Bills &bull; Yesterday</p>
-                                    </div>
+                                <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <div class="text-sm text-slate-300">Salary Deposit</div>
+                                    <div class="text-sm text-brand-accent">+$3,200.00</div>
                                 </div>
-                                <span class="text-sm font-bold text-brand-light">-$112.00</span>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 rounded-xl bg-brand-darkSurface/50 hover:bg-brand-mid/20 border border-transparent hover:border-brand-mid/30 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-brand-cream flex items-center justify-center text-sm">
-                                        <i class="fas fa-film"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-bold text-white">Streaming Media</p>
-                                        <p class="text-xs text-slate-400">Entertainment &bull; Oct 10</p>
-                                    </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="text-sm text-slate-300">Utility Bill</div>
+                                    <div class="text-sm text-white">-$112.00</div>
                                 </div>
-                                <span class="text-sm font-bold text-brand-light">-$14.99</span>
                             </div>
-                        </div>
-
-                        <!-- Pill footer inside card -->
-                        <div class="mt-5 pt-4 border-t border-brand-mid/20 flex items-center justify-between text-xs text-slate-300">
-                            <span><i class="fas fa-circle-check text-brand-light mr-1"></i> Budget Limit: 68% Safe</span>
-                            <span class="text-brand-cream font-semibold">Goal: $10,000</span>
                         </div>
                     </div>
                 </div>
@@ -310,287 +241,69 @@
         </div>
     </header>
 
-    <section id="overview" class="py-24 relative z-10 border-t border-brand-mid/20 bg-gradient-to-b from-transparent via-brand-dark/40 to-transparent">
+    <!-- FEATURES SECTION (White background with light blue cards) -->
+    <section id="features" class="py-24 relative z-10 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-mid/20 text-brand-light text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fas fa-layer-group"></i> Smart Categorization
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    Smart Budgeting Made Effortless
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 tracking-tight">
+                    Everything You Need to Track Spending
                 </h2>
-                <p class="mt-4 text-base sm:text-lg text-slate-300">
-                    Know exactly where every single dollar goes. Divide your transactions into intuitive buckets, detect wasteful leaks, and optimize your monthly cash flow.
+                <p class="mt-4 text-slate-600 font-normal">
+                    No clutter. No unnecessary features. Just clean, straightforward tools to help you log records and understand your exact financial position.
                 </p>
             </div>
 
-            <!-- Interactive Category Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary/60 border border-brand-light/30 flex items-center justify-center text-brand-light mb-5 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-utensils text-xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-white">Food & Dining</h3>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">Healthy</span>
-                    </div>
-                    <p class="text-xs text-slate-300 mb-4">Restaurants, takeout, and household grocery runs.</p>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Spent: $420</span>
-                            <span class="text-brand-light">Cap: $600</span>
-                        </div>
-                        <div class="w-full bg-brand-darkSurface rounded-full h-2 overflow-hidden">
-                            <div class="bg-gradient-to-r from-brand-mid to-brand-light h-2 rounded-full" style="width: 70%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary/60 border border-brand-light/30 flex items-center justify-center text-brand-cream mb-5 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-house-chimney text-xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-white">Housing & Bills</h3>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-brand-cream/20 text-brand-cream font-semibold">Fixed</span>
-                    </div>
-                    <p class="text-xs text-slate-300 mb-4">Mortgage, rent, fiber internet, electricity & utilities.</p>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Spent: $1,250</span>
-                            <span class="text-brand-light">Cap: $1,300</span>
-                        </div>
-                        <div class="w-full bg-brand-darkSurface rounded-full h-2 overflow-hidden">
-                            <div class="bg-gradient-to-r from-brand-mid to-brand-cream h-2 rounded-full" style="width: 92%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary/60 border border-brand-light/30 flex items-center justify-center text-brand-light mb-5 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-gamepad text-xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-white">Lifestyle</h3>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-semibold">Flexible</span>
-                    </div>
-                    <p class="text-xs text-slate-300 mb-4">Cinema tickets, weekend hobbies, and shopping perks.</p>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Spent: $180</span>
-                            <span class="text-brand-light">Cap: $400</span>
-                        </div>
-                        <div class="w-full bg-brand-darkSurface rounded-full h-2 overflow-hidden">
-                            <div class="bg-gradient-to-r from-brand-mid to-brand-light h-2 rounded-full" style="width: 45%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary/60 border border-brand-light/30 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-piggy-bank text-xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-white">Savings Pool</h3>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">Priority</span>
-                    </div>
-                    <p class="text-xs text-slate-300 mb-4">Emergency cushions, indices, and retirement reserves.</p>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Saved: $750</span>
-                            <span class="text-emerald-300">Goal: $800</span>
-                        </div>
-                        <div class="w-full bg-brand-darkSurface rounded-full h-2 overflow-hidden">
-                            <div class="bg-gradient-to-r from-emerald-500 to-emerald-300 h-2 rounded-full" style="width: 94%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Interactive Budget Calculator widget -->
-            <div class="mt-14 glass-card rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div class="text-center sm:text-left">
-                        <h4 class="text-xl font-bold text-white">Quick 50/30/20 Budget Estimator</h4>
-                        <p class="text-sm text-slate-300 mt-1">Slide your monthly income to preview ideal allocations instantly.</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-slate-400 font-semibold">Income:</span>
-                        <span id="income-display" class="text-2xl font-extrabold text-brand-cream">$4,000</span>
-                    </div>
-                </div>
-
-                <div class="mt-6">
-                    <input id="income-slider" type="range" min="1000" max="15000" step="250" value="4000" 
-                           class="w-full h-2 bg-brand-darkSurface rounded-lg appearance-none cursor-pointer accent-[#FFEFC4]">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 text-center">
-                    <div class="p-4 rounded-xl bg-brand-darkSurface/60 border border-brand-mid/20">
-                        <p class="text-xs text-brand-light font-bold uppercase tracking-wider">50% Needs (Rent, Food)</p>
-                        <p id="calc-needs" class="text-xl font-extrabold text-white mt-1">$2,000</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-brand-darkSurface/60 border border-brand-mid/20">
-                        <p class="text-xs text-brand-cream font-bold uppercase tracking-wider">30% Wants (Fun, Shopping)</p>
-                        <p id="calc-wants" class="text-xl font-extrabold text-white mt-1">$1,200</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-brand-darkSurface/60 border border-brand-mid/20">
-                        <p class="text-xs text-emerald-300 font-bold uppercase tracking-wider">20% Savings & Debt</p>
-                        <p id="calc-savings" class="text-xl font-extrabold text-white mt-1">$800</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="analytics" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <!-- Left Details -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-mid/20 text-brand-light text-xs font-bold uppercase tracking-wider">
-                        <i class="fas fa-chart-pie"></i> Visual Intelligence
-                    </div>
-
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                        Clear reports without confusing spreadsheets
-                    </h2>
-
-                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-                        Say goodbye to complex bookkeeping formulas. Expense Tracker translates raw receipts into clear, interactive visual trend graphs.
-                    </p>
-
-                    <div class="space-y-4 pt-2">
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-primary/70 flex items-center justify-center text-brand-light shrink-0 mt-1">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-base font-bold text-white">Month-over-Month Comparisons</h4>
-                                <p class="text-sm text-slate-300">Spot whether you're saving more or creeping over budget before the month concludes.</p>
-                            </div>
+                <!-- Feature 1 -->
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-white border border-blue-100 flex items-center justify-center text-brand-primary mb-6 shadow-sm">
+                            <i class="fas fa-chart-line text-xl"></i>
                         </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-primary/70 flex items-center justify-center text-brand-cream shrink-0 mt-1">
-                                <i class="fas fa-file-export"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-base font-bold text-white">Instant Export (CSV & PDF)</h4>
-                                <p class="text-sm text-slate-300">Seamlessly download organized logs for tax seasons or personal accountant reviews.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-primary/70 flex items-center justify-center text-emerald-300 shrink-0 mt-1">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-base font-bold text-white">Smart Threshold Alerts</h4>
-                                <p class="text-sm text-slate-300">Get notified when you hit 80% or 95% of your planned category budget.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-4">
-                        <a href="{% url 'register' %}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold bg-brand-light text-brand-dark hover:bg-white transition-all shadow-lg shadow-brand-light/20">
-                            View Live Demo Dashboard <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mb-3">Live Dashboard Overview</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Log in and instantly see your vital stats. The dashboard automatically calculates your total balance, all-time expenses, and breaks down your spending by today, this week, and this month.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Right Visual Chart Mockup -->
-                <div class="lg:col-span-7">
-                    <div class="glass-card rounded-3xl p-6 sm:p-8">
-                        <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-brand-mid/30">
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Spending Trends</h3>
-                                <p class="text-xs text-slate-400">First 6 Months Performance Overview</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-brand-primary/60 text-brand-light border border-brand-light/30">2026 Trend</span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-brand-darkSurface text-slate-400">Monthly</span>
-                            </div>
+                <!-- Feature 2 -->
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-white border border-blue-100 flex items-center justify-center text-brand-primary mb-6 shadow-sm">
+                            <i class="fas fa-calendar-check text-xl"></i>
                         </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mb-3">Monthly Savings Reports</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Keep a historical record of your performance. Our reports view maps out every past month, showing your total income, total expenses, net cash flow, and calculates your exact monthly savings rate.
+                        </p>
+                    </div>
+                </div>
 
-                        <!-- Bar Graph Representation -->
-                        <div class="mt-8">
-                            <div class="h-64 flex items-end justify-between gap-3 sm:gap-6 px-2">
-                                <!-- Bar 1 -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-slate-400 group-hover:text-brand-light font-bold opacity-0 group-hover:opacity-100 transition-opacity">$1,200</span>
-                                    <div class="w-full bg-brand-mid/30 rounded-t-lg h-32 relative overflow-hidden group-hover:bg-brand-mid/50 transition-colors">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-brand-mid h-24 rounded-t-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-slate-400">Jan</span>
-                                </div>
-
-                                <!-- Bar 2 -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-slate-400 group-hover:text-brand-light font-bold opacity-0 group-hover:opacity-100 transition-opacity">$1,650</span>
-                                    <div class="w-full bg-brand-mid/30 rounded-t-lg h-44 relative overflow-hidden group-hover:bg-brand-mid/50 transition-colors">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-brand-mid h-36 rounded-t-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-slate-400">Feb</span>
-                                </div>
-
-                                <!-- Bar 3 -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-slate-400 group-hover:text-brand-light font-bold opacity-0 group-hover:opacity-100 transition-opacity">$1,400</span>
-                                    <div class="w-full bg-brand-mid/30 rounded-t-lg h-36 relative overflow-hidden group-hover:bg-brand-mid/50 transition-colors">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-brand-mid h-30 rounded-t-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-slate-400">Mar</span>
-                                </div>
-
-                                <!-- Bar 4 -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-slate-400 group-hover:text-brand-light font-bold opacity-0 group-hover:opacity-100 transition-opacity">$1,900</span>
-                                    <div class="w-full bg-brand-mid/30 rounded-t-lg h-52 relative overflow-hidden group-hover:bg-brand-mid/50 transition-colors">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-brand-mid h-44 rounded-t-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-slate-400">Apr</span>
-                                </div>
-
-                                <!-- Bar 5 (Highlight Month) -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-brand-cream font-bold opacity-100">$980</span>
-                                    <div class="w-full bg-brand-light/30 rounded-t-lg h-28 relative overflow-hidden">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-light to-brand-cream h-20 rounded-t-lg shadow-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-extrabold text-brand-cream">May</span>
-                                </div>
-
-                                <!-- Bar 6 -->
-                                <div class="flex-1 flex flex-col items-center gap-2 group">
-                                    <span class="text-xs text-slate-400 group-hover:text-brand-light font-bold opacity-0 group-hover:opacity-100 transition-opacity">$1,350</span>
-                                    <div class="w-full bg-brand-mid/30 rounded-t-lg h-36 relative overflow-hidden group-hover:bg-brand-mid/50 transition-colors">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-brand-mid h-28 rounded-t-lg"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-slate-400">Jun</span>
-                                </div>
-                            </div>
+                <!-- Feature 3 -->
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-white border border-blue-100 flex items-center justify-center text-brand-primary mb-6 shadow-sm">
+                            <i class="fas fa-filter text-xl"></i>
                         </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mb-3">Advanced Data Filtering</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Looking for a specific purchase? Easily filter your entire expense history by custom start and end dates, or by minimum and maximum dollar amounts. Sort your results by newest, oldest, or highest cost.
+                        </p>
+                    </div>
+                </div>
 
-                        <!-- Legend & Status -->
-                        <div class="mt-8 pt-4 border-t border-brand-mid/20 flex flex-wrap items-center justify-between gap-4 text-xs">
-                            <div class="flex items-center gap-4">
-                                <span class="flex items-center gap-1.5 text-slate-300">
-                                    <span class="w-3 h-3 rounded-sm bg-brand-mid"></span> Standard Spend
-                                </span>
-                                <span class="flex items-center gap-1.5 text-slate-300">
-                                    <span class="w-3 h-3 rounded-sm bg-brand-cream"></span> Low Spend Win
-                                </span>
-                            </div>
-                            <div class="text-brand-light font-semibold">
-                                <i class="fas fa-arrow-trend-down mr-1"></i> -22% lower spending in May
-                            </div>
+                <!-- Feature 4 -->
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-white border border-blue-100 flex items-center justify-center text-brand-primary mb-6 shadow-sm">
+                            <i class="fas fa-bolt text-xl"></i>
                         </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mb-3">Quick Record Logging</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Adding a new transaction takes seconds. Dedicated interfaces for quickly inputting new incomes and expenses ensure your dashboard is always up to date with zero friction.
+                        </p>
                     </div>
                 </div>
 
@@ -598,244 +311,112 @@
         </div>
     </section>
 
-    <section id="security" class="py-24 relative z-10 border-t border-brand-mid/20 bg-brand-darkSurface/40">
+    <!-- ABOUT US SECTION (Light grey background, solid primary blue card) -->
+    <section id="about" class="py-24 relative z-10 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-primary shadow-xl shadow-blue-900/10 rounded-3xl p-10 sm:p-14 text-center text-white">
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold tracking-tight mb-6">
+                    About ExpenseTracker
+                </h2>
+                <div class="w-16 h-1 bg-blue-300 mx-auto rounded-full mb-8"></div>
+                
+                <div class="space-y-6 text-blue-100 text-base sm:text-lg font-normal leading-relaxed">
+                    <p>
+                        Managing personal finances shouldn't require complex spreadsheets or a degree in accounting. We built ExpenseTracker to solve a simple problem: knowing exactly where your money goes without the headaches.
+                    </p>
+                    <p>
+                        Our platform strips away the unnecessary clutter found in modern financial apps. We focus purely on providing a fast, secure, and straightforward way to log your daily incomes and expenses. 
+                    </p>
+                    <p>
+                        By giving you immediate access to daily, weekly, and monthly aggregates—alongside detailed filtering and historical reporting—we empower you to make informed decisions and hit your savings goals on your own terms. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURITY SECTION (White background with light blue cards) -->
+    <section id="security" class="py-24 relative z-10 bg-white border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-mid/20 text-brand-light text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fas fa-shield-halved"></i> Uncompromising Privacy
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    Your Money, Your Rules, Absolute Privacy.
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 tracking-tight">
+                    Secure & Private
                 </h2>
-                <p class="mt-4 text-base sm:text-lg text-slate-300">
-                    We adhere to the highest grade data protections. No intrusive advertising networks, no monetized selling of habits, and robust encrypted sessions.
+                <p class="mt-4 text-slate-600 font-normal">
+                    Your financial data belongs to you. We've built our platform on a foundation of privacy and security.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Security Card 1 -->
-                <div class="glass-card rounded-2xl p-8 text-center sm:text-left transition-all duration-300 hover:border-brand-light/50">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-primary/50 text-brand-light flex items-center justify-center text-2xl mb-6 mx-auto sm:mx-0">
+            <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-6">
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 hover:-translate-y-1 rounded-3xl p-8 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-full bg-white border border-blue-100 text-brand-primary flex items-center justify-center text-lg mb-6 mx-auto sm:mx-0 shadow-sm">
                         <i class="fas fa-lock"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">AES 256-Bit Cryptography</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        Data remains secured in transit and at rest with TLS 1.3 standards, shielding every line item and calculation.
+                    <h3 class="text-lg font-heading font-bold text-slate-900 mb-3">Encrypted Sessions</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Data remains secured in transit and at rest with modern encryption standards, ensuring your financial logs are visible only to you.
                     </p>
                 </div>
 
-                <!-- Security Card 2 -->
-                <div class="glass-card rounded-2xl p-8 text-center sm:text-left transition-all duration-300 hover:border-brand-light/50">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-primary/50 text-brand-cream flex items-center justify-center text-2xl mb-6 mx-auto sm:mx-0">
+                <div class="bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 hover:-translate-y-1 rounded-3xl p-8 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-full bg-white border border-blue-100 text-brand-primary flex items-center justify-center text-lg mb-6 mx-auto sm:mx-0 shadow-sm">
                         <i class="fas fa-ban"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Zero Ad Profiling</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        We never sell or cross-target your personal budget records. You are the owner of your financial data, never the product.
-                    </p>
-                </div>
-
-                <!-- Security Card 3 -->
-                <div class="glass-card rounded-2xl p-8 text-center sm:text-left border-brand-mid/30 transition-all duration-300 hover:border-brand-light/50">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-primary/50 text-emerald-300 flex items-center justify-center text-2xl mb-6 mx-auto sm:mx-0">
-                        <i class="fas fa-cloud-arrow-up"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Real-Time Cloud Backups</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        Seamless failover redundancies keep your balances synced across phone, desktop, and tablet with guaranteed integrity.
+                    <h3 class="text-lg font-heading font-bold text-slate-900 mb-3">Zero Data Selling</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        We do not sell, share, or cross-target your personal budget records with advertising networks. You are not the product.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-24 relative z-10">
+    <!-- FOOTER (Clean Light Grey) -->
+    <footer class="bg-slate-50 border-t border-slate-200 pt-16 pb-8 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                
-                <!-- Support Info Left -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-mid/20 text-brand-light text-xs font-bold uppercase tracking-wider">
-                        <i class="fas fa-headset"></i> Dedicated Helpdesk
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-slate-200">
 
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                        Need help or have questions?
-                    </h2>
-
-                    <p class="text-slate-300 text-base leading-relaxed">
-                        Whether you need help connecting custom budgets or want to recommend a feature, our team is always ready to guide you.
-                    </p>
-
-                    <div class="space-y-4 pt-4">
-                        <div class="flex items-center gap-4 text-slate-300">
-                            <div class="w-10 h-10 rounded-xl bg-brand-mid/20 flex items-center justify-center text-brand-light">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400">Direct Support</p>
-                                <p class="text-sm font-semibold text-white">support@expensetracker.app</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-4 text-slate-300">
-                            <div class="w-10 h-10 rounded-xl bg-brand-mid/20 flex items-center justify-center text-brand-cream">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400">Response Speed</p>
-                                <p class="text-sm font-semibold text-white">Usually replies in less than 2 hours</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Mini FAQ Accordion -->
-                    <div class="pt-6 space-y-3">
-                        <div class="p-4 rounded-xl bg-brand-darkSurface/80 border border-brand-mid/20">
-                            <h4 class="text-sm font-bold text-white flex items-center justify-between cursor-pointer" onclick="toggleFaq('faq1')">
-                                Is Expense Tracker completely free?
-                                <i class="fas fa-chevron-down text-brand-light text-xs"></i>
-                            </h4>
-                            <p id="faq1" class="text-xs text-slate-400 mt-2">
-                                Yes! Our core individual tracking suite is free forever with full category budgeting and CSV export capabilities.
-                            </p>
-                        </div>
-
-                        <div class="p-4 rounded-xl bg-brand-darkSurface/80 border border-brand-mid/20">
-                            <h4 class="text-sm font-bold text-white flex items-center justify-between cursor-pointer" onclick="toggleFaq('faq2')">
-                                Can I access my expenses offline?
-                                <i class="fas fa-chevron-down text-brand-light text-xs"></i>
-                            </h4>
-                            <p id="faq2" class="text-xs text-slate-400 mt-2 hidden">
-                                Yes, offline transactions are saved locally in modern browser storage and sync seamlessly upon reconnection.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Django Contact Form Right -->
-                <div class="lg:col-span-7">
-                    <div class="glass-card rounded-3xl p-8 sm:p-10 shadow-xl">
-                        <h3 class="text-2xl font-bold text-white mb-2">Send us a message</h3>
-                        <p class="text-sm text-slate-300 mb-6">Fill in the fields below and we will get back to you shortly.</p>
-
-                        <form action="#" method="post" class="space-y-5" id="contact-form">
-                            {% csrf_token %}
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                <div>
-                                    <label for="contact_name" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Name</label>
-                                    <input type="text" id="contact_name" name="contact_name" required
-                                           placeholder="e.g. Alex Morgan"
-                                           class="w-full px-4 py-3 rounded-xl bg-brand-darkSurface/90 border border-brand-mid/30 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition-all">
-                                </div>
-                                <div>
-                                    <label for="contact_email" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
-                                    <input type="email" id="contact_email" name="contact_email" required
-                                           placeholder="alex@domain.com"
-                                           class="w-full px-4 py-3 rounded-xl bg-brand-darkSurface/90 border border-brand-mid/30 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition-all">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="contact_subject" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Topic or Subject</label>
-                                <input type="text" id="contact_subject" name="contact_subject"
-                                       placeholder="Account setup, feedback, or suggestion"
-                                       class="w-full px-4 py-3 rounded-xl bg-brand-darkSurface/90 border border-brand-mid/30 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition-all">
-                            </div>
-
-                            <div>
-                                <label for="contact_message" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Message</label>
-                                <textarea id="contact_message" name="contact_message" rows="4" required
-                                          placeholder="How can our financial dashboard serve you better?"
-                                          class="w-full px-4 py-3 rounded-xl bg-brand-darkSurface/90 border border-brand-mid/30 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition-all resize-none"></textarea>
-                            </div>
-
-                            <button type="submit" 
-                                    class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-brand-cream text-brand-dark text-sm hover:bg-white transition-all duration-200 shadow-lg shadow-brand-cream/15 flex items-center justify-center gap-2">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="border-t border-brand-mid/20 bg-brand-dark relative z-10 pt-16 pb-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-brand-mid/20">
-                
-                <!-- Brand Info (2 Columns) -->
-                <div class="lg:col-span-2 space-y-4">
-                    <a href="#" class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-light flex items-center justify-center text-brand-dark">
-                            <i class="fas fa-wallet text-brand-dark text-lg"></i>
-                        </div>
-                        <span class="text-xl font-bold text-white tracking-tight">
-                            Expense<span class="text-brand-light">Tracker</span><span class="text-brand-cream">.</span>
+                <!-- Brand Info -->
+                <div class="space-y-5 md:col-span-1">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fas fa-wallet text-xl text-brand-primary"></i>
+                        <span class="text-lg font-heading font-bold tracking-tight text-slate-900">
+                            ExpenseTracker
                         </span>
                     </a>
-                    <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
-                        Helping individuals and households track expenditures, build financial security, and achieve meaningful savings goals.
+                    <p class="text-sm text-slate-600 max-w-xs leading-relaxed">
+                        A fast, reliable web application for tracking your personal expenses and managing your budget.
                     </p>
-                    <div class="flex items-center gap-3 pt-2">
-                        <a href="#" class="w-9 h-9 rounded-xl bg-brand-mid/20 text-slate-300 hover:text-brand-light hover:bg-brand-mid/40 flex items-center justify-center transition-all" aria-label="Twitter">
-                            <i class="fab fa-x-twitter"></i>
-                        </a>
-                        <a href="#" class="w-9 h-9 rounded-xl bg-brand-mid/20 text-slate-300 hover:text-brand-light hover:bg-brand-mid/40 flex items-center justify-center transition-all" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="w-9 h-9 rounded-xl bg-brand-mid/20 text-slate-300 hover:text-brand-light hover:bg-brand-mid/40 flex items-center justify-center transition-all" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
                 </div>
 
                 <!-- Navigation Column -->
                 <div>
-                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Navigation</h5>
-                    <ul class="space-y-2.5 text-sm">
-                        <li><a href="#overview" class="text-slate-400 hover:text-brand-light transition-colors">Overview</a></li>
-                        <li><a href="#analytics" class="text-slate-400 hover:text-brand-light transition-colors">Analytics & Charts</a></li>
-                        <li><a href="#security" class="text-slate-400 hover:text-brand-light transition-colors">Data Security</a></li>
-                        <li><a href="#contact" class="text-slate-400 hover:text-brand-light transition-colors">Help & Contact</a></li>
+                    <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-5">Platform</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#features" class="text-slate-600 hover:text-brand-primary transition-colors">Features</a></li>
+                        <li><a href="#about" class="text-slate-600 hover:text-brand-primary transition-colors">About Us</a></li>
+                        <li><a href="#security" class="text-slate-600 hover:text-brand-primary transition-colors">Security</a></li>
                     </ul>
                 </div>
 
                 <!-- Account Links Column -->
                 <div>
-                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Account</h5>
-                    <ul class="space-y-2.5 text-sm">
-                        <li><a href="{% url 'login' %}" class="text-slate-400 hover:text-brand-light transition-colors">Member Log In</a></li>
-                        <li><a href="{% url 'register' %}" class="text-slate-400 hover:text-brand-light transition-colors">Register Account</a></li>
-                        <li><a href="#" class="text-slate-400 hover:text-brand-light transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="text-slate-400 hover:text-brand-light transition-colors">Terms of Service</a></li>
+                    <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-5">Account</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="{% url 'login' %}" class="text-slate-600 hover:text-brand-primary transition-colors">Log In</a></li>
+                        <li><a href="{% url 'register' %}" class="text-slate-600 hover:text-brand-primary transition-colors">Sign Up</a></li>
                     </ul>
-                </div>
-
-                <!-- Quick Newsletter Column -->
-                <div>
-                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Weekly Money Tips</h5>
-                    <p class="text-xs text-slate-400 mb-3">Join 15k+ readers who get smart saving tips directly in their inbox.</p>
-                    <div class="flex items-center gap-2">
-                        <input type="email" placeholder="Your email..." 
-                               class="w-full px-3 py-2 rounded-lg bg-brand-darkSurface border border-brand-mid/30 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-light">
-                        <button type="button" class="px-3 py-2 rounded-lg bg-brand-mid text-white text-xs font-bold hover:bg-brand-light hover:text-brand-dark transition-colors">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </div>
                 </div>
 
             </div>
 
             <!-- Bottom Copyright Bar -->
-            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-                <p>&copy; <span id="current-year"></span> Expense Tracker. All rights reserved.</p>
-                <p class="flex items-center gap-1">
-                    Crafted with care for smarter personal finances.
-                </p>
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; <span id="current-year"></span> ExpenseTracker. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-brand-primary transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-brand-primary transition-colors">Terms</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -849,13 +430,16 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
 
-        mobileBtn.addEventListener('click', () => {
+        mobileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             const isHidden = mobileMenu.classList.contains('hidden');
             if (isHidden) {
                 mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
                 menuIcon.classList.replace('fa-bars', 'fa-xmark');
             } else {
                 mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
                 menuIcon.classList.replace('fa-xmark', 'fa-bars');
             }
         });
@@ -864,44 +448,9 @@
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
                 menuIcon.classList.replace('fa-xmark', 'fa-bars');
             });
-        });
-
-        // Budget Calculator Slider Logic
-        const slider = document.getElementById('income-slider');
-        const incomeDisplay = document.getElementById('income-display');
-        const calcNeeds = document.getElementById('calc-needs');
-        const calcWants = document.getElementById('calc-wants');
-        const calcSavings = document.getElementById('calc-savings');
-
-        function updateBudgetCalculations(val) {
-            incomeDisplay.textContent = '$' + Number(val).toLocaleString();
-            calcNeeds.textContent = '$' + Number(Math.round(val * 0.5)).toLocaleString();
-            calcWants.textContent = '$' + Number(Math.round(val * 0.3)).toLocaleString();
-            calcSavings.textContent = '$' + Number(Math.round(val * 0.2)).toLocaleString();
-        }
-
-        slider.addEventListener('input', (e) => {
-            updateBudgetCalculations(e.target.value);
-        });
-
-        // Toggle FAQ Accordion
-        function toggleFaq(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.classList.toggle('hidden');
-            }
-        }
-
-        // Navbar blur adjustment on scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                navbar.classList.add('shadow-xl', 'bg-[#041c28]/95');
-            } else {
-                navbar.classList.remove('shadow-xl', 'bg-[#041c28]/95');
-            }
         });
     </script>
 </body>

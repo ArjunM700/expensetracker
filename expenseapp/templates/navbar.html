@@ -1,16 +1,20 @@
 <!-- Left Sidebar Navigation Component -->
 <style>
     :root {
-        --sidebar-bg: #0b1f2e;
-        --sidebar-border: rgba(77, 141, 186, 0.22);
-        --brand-dark: #086288;
-        --brand-mid: #4D8DBA;
-        --brand-ice: #97D7FF;
-        --brand-cream: #FFEFC4;
-        --sidebar-text: #f4f9fc;
-        --sidebar-muted: #8ca5b5;
-        --sidebar-hover: rgba(77, 141, 186, 0.14);
+        /* Corporate Light Theme Variables */
+        --sidebar-bg: #ffffff;
+        --sidebar-border: #e2e8f0;
+        
+        --brand-primary: #2563eb;       /* Professional Blue */
+        --brand-primary-hover: #1d4ed8;
+        --brand-accent: #eff6ff;        /* Light blue for highlights */
+        
+        --sidebar-text: #0f172a;        /* Dark slate */
+        --sidebar-muted: #64748b;       /* Lighter slate */
+        --sidebar-hover: #f8fafc;
+        
         --sidebar-width: 260px;
+        --transition: all 0.2s ease;
     }
 
     /* Fixed Left Sidebar */
@@ -36,28 +40,29 @@
         align-items: center;
         gap: 12px;
         text-decoration: none;
-        color: #ffffff;
+        color: var(--sidebar-text);
         font-size: 1.15rem;
-        font-weight: 800;
+        font-weight: 700;
         letter-spacing: -0.4px;
         padding: 6px 10px 22px;
         border-bottom: 1px solid var(--sidebar-border);
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     .sidebar-brand-icon {
         width: 36px;
         height: 36px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, var(--brand-dark), var(--brand-mid));
+        border-radius: 8px;
+        background: var(--brand-primary);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--brand-cream);
+        color: #ffffff;
         flex-shrink: 0;
     }
 
     .sidebar-brand span {
-        color: var(--brand-ice);
+        color: var(--brand-primary);
     }
 
     /* Navigation Sections */
@@ -67,17 +72,17 @@
         padding-top: 20px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
     }
 
     .sidebar-group-title {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 0.8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
         color: var(--sidebar-muted);
         padding: 0 12px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
     .sidebar-menu {
@@ -86,7 +91,7 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
     }
 
     .sidebar-link {
@@ -94,12 +99,12 @@
         align-items: center;
         gap: 12px;
         padding: 10px 14px;
-        border-radius: 10px;
+        border-radius: 6px;
         text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 600;
+        font-size: 0.875rem;
+        font-weight: 500;
         color: var(--sidebar-muted);
-        transition: all 0.2s ease;
+        transition: var(--transition);
     }
 
     .sidebar-link svg {
@@ -108,38 +113,39 @@
     }
 
     .sidebar-link:hover {
-        color: var(--sidebar-text);
+        color: var(--brand-primary);
         background: var(--sidebar-hover);
         transform: translateX(3px);
     }
 
-    /* Highlighted Action Buttons (Add Expense / Add Income) */
+    /* Highlighted Action Buttons */
     .sidebar-btn-primary {
-        background: var(--brand-cream);
-        color: #06151f !important;
-        font-weight: 700;
-        box-shadow: 0 4px 14px rgba(255, 239, 196, 0.12);
+        background: var(--brand-primary);
+        color: #ffffff !important;
+        font-weight: 600;
+        margin-bottom: 6px;
     }
 
     .sidebar-btn-primary svg {
-        stroke: #06151f !important;
+        stroke: #ffffff !important;
     }
 
     .sidebar-btn-primary:hover {
-        background: #ffffff !important;
-        color: #06151f !important;
+        background: var(--brand-primary-hover) !important;
         transform: translateY(-2px);
     }
 
     .sidebar-btn-accent {
-        background: rgba(151, 215, 255, 0.12);
-        color: var(--brand-ice) !important;
-        border: 1px solid rgba(151, 215, 255, 0.25);
+        background: #f8fafc;
+        color: var(--sidebar-text) !important;
+        border: 1px solid var(--sidebar-border);
+        margin-bottom: 6px;
     }
 
     .sidebar-btn-accent:hover {
-        background: rgba(151, 215, 255, 0.22);
-        color: #ffffff !important;
+        background: #f1f5f9;
+        color: var(--brand-primary) !important;
+        border-color: #cbd5e1;
     }
 
     /* Bottom User & Logout Controls */
@@ -148,16 +154,28 @@
         border-top: 1px solid var(--sidebar-border);
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 4px;
     }
 
     .sidebar-logout {
-        color: #f87171 !important;
+        color: #dc2626 !important; /* Corporate Red */
     }
 
     .sidebar-logout:hover {
-        background: rgba(239, 68, 68, 0.12) !important;
-        color: #fca5a5 !important;
+        background: #fef2f2 !important;
+        color: #b91c1c !important;
+    }
+
+    /* Custom inline tags for Reports/Logs */
+    .nav-tag {
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: #eff6ff;
+        color: var(--brand-primary);
+        border: 1px solid #bfdbfe;
     }
 
     /* Mobile Responsive Header Toggle */
@@ -169,7 +187,7 @@
         .app-sidebar {
             transform: translateX(-100%);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.45);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
         }
 
         .app-sidebar.sidebar-open {
@@ -180,7 +198,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(15, 23, 42, 0.4); /* Darker backdrop for light theme */
             backdrop-filter: blur(2px);
             z-index: 999;
         }
@@ -203,22 +221,30 @@
 
         .mobile-brand {
             font-size: 1.1rem;
-            font-weight: 800;
-            color: #ffffff;
+            font-weight: 700;
+            color: var(--sidebar-text);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .mobile-brand svg {
+            color: var(--brand-primary);
         }
 
         .mobile-menu-btn {
-            background: rgba(77, 141, 186, 0.15);
+            background: #f8fafc;
             border: 1px solid var(--sidebar-border);
-            color: var(--brand-ice);
-            padding: 8px 12px;
-            border-radius: 8px;
+            color: var(--sidebar-text);
+            padding: 6px 10px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 </style>
@@ -234,7 +260,7 @@
         <span>Expense Tracker</span>
     </a>
     <button type="button" class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
-        ☰
+        <i class="fas fa-bars"></i>
     </button>
 </header>
 
@@ -247,7 +273,7 @@
         <!-- Brand Logo -->
         <a href="{% url 'home' %}" class="sidebar-brand">
             <div class="sidebar-brand-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="3"></rect>
                     <path d="M16 12h.01"></path>
                     <path d="M2 10h20"></path>
@@ -295,38 +321,34 @@
                             </svg>
                             Add Income
                         </a>
-
                     </li>
-                  
-            <a href="{% url 'monthly_reports' %}" class="sidebar-link sidebar-btn-accent" style="justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 12px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-        </svg>
-        <span>Monthly Reports</span>
-    </div>
-    <span style="font-size: 0.7rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: rgba(151, 215, 255, 0.15); color: var(--brand-ice); border: 1px solid rgba(151, 215, 255, 0.25);">
-        Trends
-    </span>
-</a>
-<a href="{% url 'all_expenses' %}" class="sidebar-link sidebar-btn-accent" style="justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 12px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        <span>All Expenses</span>
-    </div>
-    <span style="font-size: 0.7rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: rgba(151, 215, 255, 0.15); color: var(--brand-ice); border: 1px solid rgba(151, 215, 255, 0.25);">
-        Logs
-    </span>
-</a>
-                        
+                    <li>
+                        <a href="{% url 'monthly_reports' %}" class="sidebar-link sidebar-btn-accent" style="justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                <span>Monthly Reports</span>
+                            </div>
+                            <span class="nav-tag">Trends</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'all_expenses' %}" class="sidebar-link sidebar-btn-accent" style="justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                <span>All Expenses</span>
+                            </div>
+                            <span class="nav-tag">Logs</span>
+                        </a>
                     </li>
                 </ul>
             </div>

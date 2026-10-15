@@ -7,40 +7,47 @@
     <title>Expense Tracker | Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --brand-dark: #086288;
-            --brand-mid: #4D8DBA;
-            --brand-ice: #97D7FF;
-            --brand-cream: #FFEFC4;
+            /* Corporate Color Palette */
+            --brand-primary: #2563eb;       
+            --brand-primary-hover: #1d4ed8;
+            --brand-secondary: #f8fafc;
+            
+            --bg-base: #f1f5f9;             
+            --bg-surface: #ffffff;          
+            
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            /* Added explicit dark border for clear separation */
+            --border-dark: #0f172a;
 
-            --bg-base: #06151f;
-            --bg-surface: #0b1f2e;
-            --bg-surface-elevated: #10293d;
-            --border-color: rgba(77, 141, 186, 0.22);
-            --border-highlight: rgba(151, 215, 255, 0.35);
+            --text-main: #0f172a;           
+            --text-secondary: #334155;
+            --text-muted: #64748b;          
 
-            --text-main: #f4f9fc;
-            --text-muted: #8ca5b5;
-
-            --positive: #4ade80;
-            --negative: #f87171;
+            --negative: #dc2626;            
 
             --sidebar-width: 260px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-lg: 10px;              
+            --radius-md: 6px;
+            --radius-sm: 4px;
+            
+            /* Enhanced shadows for clear depth */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-distinct: 0 6px 12px rgba(0, 0, 0, 0.15);
+            --shadow-distinct-hover: 0 12px 20px rgba(0, 0, 0, 0.2);
+            --transition: all 0.2s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -48,11 +55,10 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            background-image: 
-                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.18) 0%, transparent 60%),
-                radial-gradient(#10293d 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px;
+        }
+
+        h1, h2, h3, h4, h5, h6, .value, .period-amount {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         /* Offset Main Wrapper for Left Sidebar */
@@ -75,36 +81,41 @@
             gap: 28px;
         }
 
-        /* Header Bar */
+        /* Header Bar - Now wrapped in a distinct card section */
         .dashboard-header {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             gap: 16px;
             flex-wrap: wrap;
+            background: var(--bg-surface);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-dark);
+            box-shadow: var(--shadow-distinct);
         }
 
         .welcome-text h1 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
             letter-spacing: -0.5px;
         }
 
         .welcome-text h1 span {
-            color: var(--brand-cream);
+            color: var(--brand-primary);
         }
 
         .welcome-text p {
             color: var(--text-muted);
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             margin-top: 4px;
         }
 
         /* Action Buttons */
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
 
@@ -112,36 +123,37 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 18px;
+            padding: 9px 16px;
             border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            font-weight: 700;
+            font-size: 0.875rem;
+            font-weight: 500;
             text-decoration: none;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .action-btn-primary {
-            background: var(--brand-cream);
-            color: #06151f;
-            box-shadow: 0 4px 14px rgba(255, 239, 196, 0.15);
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--brand-primary);
+            box-shadow: var(--shadow-sm);
         }
 
         .action-btn-primary:hover {
-            background: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 239, 196, 0.25);
+            background: var(--brand-primary-hover);
+            border-color: var(--brand-primary-hover);
         }
 
         .action-btn-secondary {
-            background: rgba(151, 215, 255, 0.1);
-            color: var(--brand-ice);
-            border: 1px solid rgba(151, 215, 255, 0.25);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-dark);
+            box-shadow: var(--shadow-sm);
         }
 
         .action-btn-secondary:hover {
-            background: rgba(151, 215, 255, 0.2);
-            color: #ffffff;
-            transform: translateY(-2px);
+            background: var(--brand-secondary);
+            color: var(--text-main);
         }
 
         /* Section Headings */
@@ -149,14 +161,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 2px;
+            margin-bottom: 12px;
         }
 
         .section-title {
-            font-size: 0.88rem;
-            font-weight: 800;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             color: var(--text-muted);
             display: flex;
             align-items: center;
@@ -164,92 +176,97 @@
         }
 
         .section-title i {
-            color: var(--brand-ice);
+            color: var(--text-muted);
+        }
+
+        /* --- FULL COLORED CARDS UTILITIES --- */
+        .color-card {
+            color: #ffffff;
+            /* Replaced border: none with a clear dark border */
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-distinct);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-distinct-hover);
+        }
+
+        /* Background Gradients */
+        .bg-blue { background: linear-gradient(135deg, #2563eb, #1e40af); }
+        .bg-emerald { background: linear-gradient(135deg, #059669, #047857); }
+        .bg-orange { background: linear-gradient(135deg, #ea580c, #c2410c); }
+        .bg-slate { background: linear-gradient(135deg, #475569, #334155); }
+        .bg-indigo { background: linear-gradient(135deg, #4f46e5, #3730a3); }
+        .bg-teal { background: linear-gradient(135deg, #0d9488, #0f766e); }
+
+        /* Generic Colored Card Typography & Icons */
+        .color-card .label, 
+        .color-card .sub-value, 
+        .color-card .period-subtitle,
+        .color-card .period-badge-sub,
+        .color-card .period-footer {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .color-card .value, 
+        .color-card .period-amount, 
+        .color-card .period-title,
+        .color-card .period-footer strong {
+            color: #ffffff;
+        }
+
+        .card-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.2);
+            /* Soft border inside the dark border card for the icon */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
         /* Primary Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-        }
-
-        .stat-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .stat-card:hover {
-            border-color: var(--border-highlight);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -10px rgba(2, 8, 14, 0.6);
-        }
-
-        /* Highlight Card for Net Balance */
-        .stat-card.highlight {
-            background: linear-gradient(145deg, rgba(8, 98, 136, 0.45) 0%, rgba(11, 31, 46, 0.95) 100%);
-            border-color: rgba(151, 215, 255, 0.35);
+            gap: 20px;
         }
 
         .stat-card-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
-        .stat-card .label {
-            font-size: 0.78rem;
+        .stat-card-top .label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .color-card .value {
+            font-size: 1.75rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-muted);
-        }
-
-        .stat-card-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
-            background: rgba(77, 141, 186, 0.15);
-            color: var(--brand-ice);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
-        }
-
-        .stat-card.highlight .stat-card-icon {
-            background: rgba(255, 239, 196, 0.15);
-            color: var(--brand-cream);
-        }
-
-        .stat-card .value {
-            font-size: 1.85rem;
-            font-weight: 800;
-            color: #ffffff;
             letter-spacing: -0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .stat-card .value.positive {
-            color: var(--positive);
-        }
-
-        .stat-card .value.negative {
-            color: var(--negative);
-        }
-
-        .stat-card .sub-value {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .color-card .sub-value {
+            font-size: 0.8125rem;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -259,40 +276,7 @@
         .period-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 18px;
-        }
-
-        .period-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-        }
-
-        .period-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--brand-dark), var(--brand-ice));
-        }
-
-        .period-card.month-card::before {
-            background: linear-gradient(90deg, var(--brand-mid), var(--brand-cream));
-        }
-
-        .period-card:hover {
-            border-color: var(--border-highlight);
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px -10px rgba(2, 8, 14, 0.65);
+            gap: 20px;
         }
 
         .period-header {
@@ -300,7 +284,7 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .period-meta {
@@ -309,98 +293,66 @@
             gap: 12px;
         }
 
-        .period-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-md);
-            background: rgba(77, 141, 186, 0.14);
-            border: 1px solid rgba(77, 141, 186, 0.25);
-            color: var(--brand-ice);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .period-card.month-card .period-icon {
-            background: rgba(255, 239, 196, 0.12);
-            border-color: rgba(255, 239, 196, 0.25);
-            color: var(--brand-cream);
-        }
-
         .period-title {
             font-size: 1rem;
-            font-weight: 700;
-            color: #ffffff;
+            font-weight: 600;
             margin-bottom: 2px;
         }
 
         .period-subtitle {
-            font-size: 0.78rem;
-            color: var(--text-muted);
+            font-size: 0.8125rem;
         }
 
         .period-tag {
-            font-size: 0.72rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: rgba(151, 215, 255, 0.1);
-            color: var(--brand-ice);
-            border: 1px solid rgba(151, 215, 255, 0.2);
-            white-space: nowrap;
-        }
-
-        .period-card.month-card .period-tag {
-            background: rgba(255, 239, 196, 0.1);
-            color: var(--brand-cream);
-            border-color: rgba(255, 239, 196, 0.2);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .period-amount-wrap {
             display: flex;
             align-items: baseline;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .period-amount {
-            font-size: 2.1rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.6px;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .period-badge-sub {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .period-footer {
-            padding-top: 14px;
-            border-top: 1px solid rgba(77, 141, 186, 0.15);
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.8125rem;
         }
 
         .period-footer strong {
-            color: #ffffff;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         /* Content Panel (Recent Expenses) */
         .panel {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
+            /* Updated border and shadow for clear separation */
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
-            padding: 26px;
-            box-shadow: 0 16px 36px -12px rgba(2, 8, 14, 0.5);
+            padding: 24px;
+            box-shadow: var(--shadow-distinct);
         }
 
         .panel-header {
@@ -408,61 +360,56 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
         }
 
         .panel-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .panel-title i {
-            color: var(--brand-ice);
+            color: var(--brand-primary);
             font-size: 1rem;
         }
 
         /* Table Styling */
         .table-responsive {
             overflow-x: auto;
+            border-radius: var(--radius-md);
+            /* Clear dark border inside the panel for the table container */
+            border: 1px solid var(--border-dark);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 0.92rem;
+            font-size: 0.875rem;
         }
 
         th {
-            padding: 12px 16px;
-            color: var(--text-muted);
+            padding: 14px 16px;
+            color: var(--text-secondary);
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(6, 21, 31, 0.4);
-        }
-
-        th:first-child {
-            border-top-left-radius: var(--radius-sm);
-            border-bottom-left-radius: var(--radius-sm);
+            letter-spacing: 0.5px;
+            background: var(--bg-base);
+            /* Stronger line for header row */
+            border-bottom: 1px solid var(--border-dark);
         }
 
         th:last-child {
-            border-top-right-radius: var(--radius-sm);
-            border-bottom-right-radius: var(--radius-sm);
             text-align: right;
         }
 
         td {
             padding: 16px;
-            border-bottom: 1px solid rgba(77, 141, 186, 0.12);
+            border-bottom: 1px solid var(--border-light);
             color: var(--text-main);
             vertical-align: middle;
         }
@@ -480,47 +427,45 @@
         }
 
         tr:hover td {
-            background-color: rgba(77, 141, 186, 0.08);
+            background-color: #f8fafc;
         }
 
         .badge-type {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 5px 12px;
-            border-radius: 999px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            background: rgba(151, 215, 255, 0.1);
-            color: var(--brand-ice);
-            border: 1px solid rgba(151, 215, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .expense-amount {
-            font-weight: 800;
-            font-size: 0.98rem;
-            color: var(--negative);
-            letter-spacing: -0.3px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
         }
 
         .date-col {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.875rem;
         }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
+            padding: 48px 20px;
         }
 
         .empty-state-icon {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: rgba(77, 141, 186, 0.12);
-            color: var(--brand-ice);
+            background: var(--bg-base);
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -529,16 +474,17 @@
         }
 
         .empty-state h3 {
-            color: #ffffff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         .empty-state p {
-            font-size: 0.88rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
             max-width: 320px;
-            margin: 0 auto 18px;
+            margin: 0 auto 20px;
             line-height: 1.5;
         }
 
@@ -585,7 +531,7 @@
     <div class="layout-wrapper">
         <main class="main-container">
 
-            <!-- Welcome Header -->
+            <!-- Welcome Header (Now acts as a clearly separated section card) -->
             <header class="dashboard-header">
                 <div class="welcome-text">
                     <h1>Welcome, <span>{{ user.first_name|default:user.username }}</span></h1>
@@ -606,15 +552,15 @@
 
             <!-- 4 Core Stat Cards: Balance, Income, Total Spent, Today's Spent -->
             <section class="stats-grid">
-                <!-- Net Balance -->
-                <div class="stat-card highlight">
+                <!-- Net Balance (Blue) -->
+                <div class="color-card bg-blue">
                     <div class="stat-card-top">
                         <span class="label">Remaining Balance</span>
-                        <div class="stat-card-icon">
+                        <div class="card-icon-wrapper">
                             <i class="fas fa-wallet"></i>
                         </div>
                     </div>
-                    <div class="value {% if balance_amount >= 0 %}positive{% else %}negative{% endif %}">
+                    <div class="value">
                         ₹{{ balance_amount }}
                     </div>
                     <div class="sub-value">
@@ -623,25 +569,25 @@
                     </div>
                 </div>
 
-                <!-- Total Income -->
-                <div class="stat-card">
+                <!-- Total Income (Emerald Green) -->
+                <div class="color-card bg-emerald">
                     <div class="stat-card-top">
                         <span class="label">Total Income</span>
-                        <div class="stat-card-icon">
+                        <div class="card-icon-wrapper">
                             <i class="fas fa-arrow-trend-up"></i>
                         </div>
                     </div>
-                    <div class="value" style="color: var(--brand-cream);">
+                    <div class="value">
                         ₹{{ total_income }}
                     </div>
                     <div class="sub-value">All logged earnings</div>
                 </div>
 
-                <!-- Total Expenses -->
-                <div class="stat-card">
+                <!-- Total Expenses (Deep Orange) -->
+                <div class="color-card bg-orange">
                     <div class="stat-card-top">
                         <span class="label">Total Expenses</span>
-                        <div class="stat-card-icon">
+                        <div class="card-icon-wrapper">
                             <i class="fas fa-receipt"></i>
                         </div>
                     </div>
@@ -651,11 +597,11 @@
                     <div class="sub-value">All-time expenditure</div>
                 </div>
 
-                <!-- Today's Expenses -->
-                <div class="stat-card">
+                <!-- Today's Expenses (Slate Gray) -->
+                <div class="color-card bg-slate">
                     <div class="stat-card-top">
                         <span class="label">Today's Expenses</span>
-                        <div class="stat-card-icon">
+                        <div class="card-icon-wrapper">
                             <i class="fas fa-calendar-day"></i>
                         </div>
                     </div>
@@ -673,12 +619,12 @@
                         <i class="fas fa-chart-line"></i> Spending Velocity & Periods
                     </span>
                 </div>
-                <div class="period-grid" style="margin-top: 12px;">
-                    <!-- Weekly Report Card -->
-                    <div class="period-card">
+                <div class="period-grid">
+                    <!-- Weekly Report Card (Indigo) -->
+                    <div class="color-card bg-indigo">
                         <div class="period-header">
                             <div class="period-meta">
-                                <div class="period-icon">
+                                <div class="card-icon-wrapper" style="width: 44px; height: 44px; font-size: 1.1rem;">
                                     <i class="fas fa-calendar-week"></i>
                                 </div>
                                 <div>
@@ -698,11 +644,11 @@
                         </div>
                     </div>
 
-                    <!-- Monthly Report Card -->
-                    <div class="period-card month-card">
+                    <!-- Monthly Report Card (Teal) -->
+                    <div class="color-card bg-teal">
                         <div class="period-header">
                             <div class="period-meta">
-                                <div class="period-icon">
+                                <div class="card-icon-wrapper" style="width: 44px; height: 44px; font-size: 1.1rem;">
                                     <i class="fas fa-calendar-days"></i>
                                 </div>
                                 <div>
@@ -713,7 +659,7 @@
                             <span class="period-tag">Monthly</span>
                         </div>
                         <div class="period-amount-wrap">
-                            <span class="period-amount" style="color: var(--brand-cream);">₹{{ monthly_total }}</span>
+                            <span class="period-amount">₹{{ monthly_total }}</span>
                             <span class="period-badge-sub">outflow</span>
                         </div>
                         <div class="period-footer">

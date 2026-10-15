@@ -1,37 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker | All Income</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --brand-dark: #086288;
-            --brand-mid: #4D8DBA;
-            --brand-ice: #97D7FF;
-            --brand-cream: #FFEFC4;
+            /* Corporate Light Theme Variables */
+            --brand-primary: #2563eb;
+            --brand-primary-hover: #1d4ed8;
 
-            --bg-base: #06151f;
-            --bg-surface: #0b1f2e;
-            --bg-surface-elevated: #10293d;
-            --border-color: rgba(77, 141, 186, 0.22);
-            --border-highlight: rgba(151, 215, 255, 0.35);
+            --bg-base: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f8fafc;
 
-            --text-main: #f4f9fc;
-            --text-muted: #8ca5b5;
-            --income-green: #4ade80;
-            --danger-red: #f87171;
+            --border-color: #cbd5e1;
+            --border-dark: #0f172a; /* Clear dark border */
+            --border-focus: #2563eb;
+
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            
+            --income-green: #16a34a; /* Adjusted for light background */
+            --danger-red: #dc2626;
 
             --sidebar-width: 260px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+            
+            /* Distinct shadow for separation */
+            --shadow-distinct: 0 8px 16px rgba(0, 0, 0, 0.08);
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -47,11 +54,6 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            background-image: 
-                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.18) 0%, transparent 60%),
-                radial-gradient(#10293d 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px;
         }
 
         /* Offset wrapper for sidebar */
@@ -86,7 +88,7 @@
         .header-section h1 {
             font-size: 1.75rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
@@ -94,7 +96,7 @@
         }
 
         .header-section h1 i {
-            color: var(--brand-ice);
+            color: var(--income-green);
             font-size: 1.4rem;
         }
 
@@ -113,16 +115,17 @@
             font-size: 0.88rem;
             font-weight: 700;
             text-decoration: none;
-            background: var(--brand-cream);
-            color: #06151f;
-            box-shadow: 0 4px 14px rgba(255, 239, 196, 0.15);
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: var(--transition);
         }
 
         .btn-new-income:hover {
-            background: #ffffff;
+            background: var(--brand-primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 239, 196, 0.25);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
         }
 
         /* Messages */
@@ -137,9 +140,9 @@
             border-radius: var(--radius-md);
             font-size: 0.88rem;
             font-weight: 600;
-            background: rgba(74, 222, 128, 0.12);
-            color: #86efac;
-            border: 1px solid rgba(74, 222, 128, 0.28);
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -148,14 +151,16 @@
         /* Table Panel */
         .panel {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
             padding: 24px;
-            box-shadow: 0 16px 36px -12px rgba(2, 8, 14, 0.5);
+            box-shadow: var(--shadow-distinct);
         }
 
         .table-responsive {
             overflow-x: auto;
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius-md);
         }
 
         table {
@@ -172,23 +177,17 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(6, 21, 31, 0.4);
-        }
-
-        th:first-child {
-            border-top-left-radius: var(--radius-sm);
-            border-bottom-left-radius: var(--radius-sm);
+            border-bottom: 1px solid var(--border-dark);
+            background: #f8fafc;
         }
 
         th:last-child {
-            border-top-right-radius: var(--radius-sm);
-            border-bottom-right-radius: var(--radius-sm);
+            text-align: right;
         }
 
         td {
             padding: 16px;
-            border-bottom: 1px solid rgba(77, 141, 186, 0.12);
+            border-bottom: 1px solid var(--border-color);
             color: var(--text-main);
             vertical-align: middle;
         }
@@ -202,7 +201,7 @@
         }
 
         tr:hover td {
-            background-color: rgba(77, 141, 186, 0.08);
+            background-color: var(--bg-surface-hover);
         }
 
         .id-badge {
@@ -213,9 +212,9 @@
             border-radius: var(--radius-sm);
             font-size: 0.8rem;
             font-weight: 700;
-            background: rgba(77, 141, 186, 0.12);
-            color: var(--brand-ice);
-            border: 1px solid rgba(77, 141, 186, 0.2);
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
         }
 
         .income-amount {
@@ -239,9 +238,9 @@
             gap: 6px;
             padding: 6px 12px;
             border-radius: var(--radius-sm);
-            background: rgba(77, 141, 186, 0.12);
-            border: 1px solid rgba(77, 141, 186, 0.25);
-            color: var(--brand-ice);
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--brand-primary);
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 600;
@@ -249,9 +248,8 @@
         }
 
         .edit-action-btn:hover {
-            background: rgba(151, 215, 255, 0.2);
-            border-color: var(--brand-ice);
-            color: #ffffff;
+            background: #eff6ff;
+            border-color: var(--brand-primary);
             transform: translateY(-1px);
         }
 
@@ -261,8 +259,8 @@
             gap: 6px;
             padding: 6px 12px;
             border-radius: var(--radius-sm);
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            background: #fef2f2;
+            border: 1px solid #fecaca;
             color: var(--danger-red);
             font-size: 0.8rem;
             font-weight: 600;
@@ -271,9 +269,8 @@
         }
 
         .delete-action-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #ef4444;
-            color: #fca5a5;
+            background: #fee2e2;
+            border-color: var(--danger-red);
             transform: translateY(-1px);
         }
 
@@ -288,8 +285,9 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: rgba(77, 141, 186, 0.12);
-            color: var(--brand-ice);
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -298,7 +296,7 @@
         }
 
         .empty-state h3 {
-            color: #ffffff;
+            color: var(--text-main);
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 6px;
@@ -347,14 +345,14 @@
         <main class="main-container">
 
             {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <div class="message">
-                            <i class="fas fa-circle-check"></i>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message">
+                    <i class="fas fa-circle-check"></i>
+                    {{ message }}
                 </div>
+                {% endfor %}
+            </div>
             {% endif %}
 
             <div class="header-section">
@@ -373,54 +371,56 @@
             <section class="panel">
                 <div class="table-responsive">
                     {% if incomes %}
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th># ID</th>
-                                    <th>Amount</th>
-                                    <th style="text-align: right;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for income in incomes %}
-                                    <tr>
-                                        <td>
-                                            <span class="id-badge">
-                                                <i class="fas fa-hashtag" style="font-size: 0.65rem;"></i>{{ income.id }}
-                                            </span>
-                                        </td>
-                                        <td class="income-amount">+${{ income.amount }}</td>
-                                        <td style="text-align: right;">
-                                            <div class="action-group">
-                                                <a href="{% url 'edit_income' income.id %}" class="edit-action-btn">
-                                                    <i class="fas fa-pen-to-square"></i>
-                                                    Edit
-                                                </a>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th># ID</th>
+                                <th>Amount</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for income in incomes %}
+                            <tr>
+                                <td>
+                                    <span class="id-badge">
+                                        <i class="fas fa-hashtag" style="font-size: 0.65rem;"></i>{{ income.id }}
+                                    </span>
+                                </td>
+                                <td class="income-amount">+${{ income.amount }}</td>
+                                <td style="text-align: right;">
+                                    <div class="action-group">
+                                        <a href="{% url 'edit_income' income.id %}" class="edit-action-btn">
+                                            <i class="fas fa-pen-to-square"></i>
+                                            Edit
+                                        </a>
 
-                                                <form method="POST" action="{% url 'delete_income' income.id %}" style="display: inline;" onsubmit="return confirm('Delete this income record of ${{ income.amount }}?');">
-                                                    {% csrf_token %}
-                                                    <button type="submit" class="delete-action-btn">
-                                                        <i class="fas fa-trash-can"></i>
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                        <form method="POST" action="{% url 'delete_income' income.id %}"
+                                            style="display: inline;"
+                                            onsubmit="return confirm('Delete this income record of ${{ income.amount }}?');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="delete-action-btn">
+                                                <i class="fas fa-trash-can"></i>
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                     {% else %}
-                        <div class="empty-state">
-                            <div class="empty-state-icon">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <h3>No income logs recorded yet</h3>
-                            <p>Record your income streams to track balance inflows accurately.</p>
-                            <a href="{% url 'add_income' %}" class="btn-new-income" style="display: inline-flex;">
-                                <i class="fas fa-plus"></i> Record First Income
-                            </a>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-money-bill-wave"></i>
                         </div>
+                        <h3>No income logs recorded yet</h3>
+                        <p>Record your income streams to track balance inflows accurately.</p>
+                        <a href="{% url 'add_income' %}" class="btn-new-income" style="display: inline-flex; margin-top: 10px;">
+                            <i class="fas fa-plus"></i> Record First Income
+                        </a>
+                    </div>
                     {% endif %}
                 </div>
             </section>
@@ -429,4 +429,5 @@
     </div>
 
 </body>
+
 </html>
