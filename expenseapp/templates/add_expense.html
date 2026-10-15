@@ -273,7 +273,14 @@
                         >
                     </div>
                 </div>
-                
+                <div class="form-group">
+    <label for="date">Expense Date</label>
+    <div class="input-wrapper">
+        <span class="input-prefix">📅</span>
+        <!-- Uses Django's 'now' tag to pre-fill today's date in YYYY-MM-DD format -->
+        <input type="date" id="date" name="date" value="{% now 'Y-m-d' %}">
+    </div>
+</div>
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-check"></i>
                     Log Expense

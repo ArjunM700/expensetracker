@@ -4,13 +4,13 @@ from .models import Expense,Income,Limit
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ['amount', 'type']
+        fields = ['amount', 'type', 'date']
 
 
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['amount']
+        fields = ['amount','date']
 
 class LimitForm(forms.ModelForm):
     class Meta:

@@ -196,9 +196,10 @@
         }
 
         .table-responsive {
-            overflow-x: auto;
+            width: 100%;
             border: 1px solid var(--border-dark);
             border-radius: var(--radius-md);
+            overflow: hidden;
         }
 
         table {
@@ -523,6 +524,7 @@
             transform: translateY(-1px);
         }
 
+        /* Mobile Responsive Adjustments */
         @media (max-width: 820px) {
             body {
                 flex-direction: column;
@@ -553,6 +555,66 @@
 
             .modal-grid-2 {
                 grid-template-columns: 1fr;
+            }
+
+            /* Responsive Table (Card Layout for Mobile) */
+            .table-responsive {
+                border: none;
+                background: transparent;
+            }
+            
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            tr {
+                background: #ffffff;
+                border: 1px solid var(--border-dark);
+                border-radius: var(--radius-md);
+                margin-bottom: 16px;
+                padding: 12px 16px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            
+            td {
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                padding: 12px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+            }
+            
+            td:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+            }
+            
+            td:first-child {
+                padding-top: 0;
+            }
+            
+            td::before {
+                content: attr(data-label);
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                text-align: left;
+                margin-right: 16px;
+            }
+            
+            .action-group {
+                width: 100%;
+                justify-content: flex-end;
             }
         }
     </style>
@@ -640,15 +702,15 @@
                         <tbody>
                             {% for expense in expenses %}
                             <tr>
-                                <td>
+                                <td data-label="Category">
                                     <span class="badge-type">
                                         <i class="fas fa-tag" style="font-size: 0.7rem;"></i>
                                         {{ expense.get_type_display|default:expense.type }}
                                     </span>
                                 </td>
-                                <td class="expense-amount">-₹{{ expense.amount }}</td>
-                                <td class="date-col">{{ expense.date|date:"M d, Y · h:i A" }}</td>
-                                <td style="text-align: right;">
+                                <td data-label="Amount" class="expense-amount">-₹{{ expense.amount }}</td>
+                                <td data-label="Date & Time" class="date-col">{{ expense.date|date:"M d, Y · h:i A" }}</td>
+                                <td data-label="Action" style="text-align: right;">
                                     <div class="action-group">
                                         <a href="{% url 'edit_expense' expense.id %}" class="edit-action-btn">
                                             <i class="fas fa-pen-to-square"></i>
@@ -744,7 +806,6 @@
                             <i class="fas fa-arrow-down-a-z"></i> Sort Ordering
                         </label>
                         <select id="sort" name="sort">
-                            <!-- FIXED THE DJANGO TEMPLATE SYNTAX ERROR HERE BY ADDING SPACES AROUND '==' -->
                             <option value="date_desc" {% if sort_by == 'date_desc' %}selected{% endif %}>Date: Newest First</option>
                             <option value="date_asc" {% if sort_by == 'date_asc' %}selected{% endif %}>Date: Oldest First</option>
                             <option value="amount_desc" {% if sort_by == 'amount_desc' %}selected{% endif %}>Amount: High to Low (Largest)</option>

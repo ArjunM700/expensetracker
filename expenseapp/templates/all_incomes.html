@@ -204,22 +204,27 @@
             background-color: var(--bg-surface-hover);
         }
 
-        .id-badge {
+        .date-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
+            gap: 6px;
+            padding: 6px 12px;
             border-radius: var(--radius-sm);
-            font-size: 0.8rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 600;
             background: #f1f5f9;
-            color: var(--text-muted);
+            color: var(--text-main);
             border: 1px solid var(--border-color);
+        }
+
+        .date-badge i {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .income-amount {
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--income-green);
             letter-spacing: -0.3px;
         }
@@ -374,7 +379,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th># ID</th>
+                                <th>Date</th>
                                 <th>Amount</th>
                                 <th style="text-align: right;">Action</th>
                             </tr>
@@ -383,11 +388,12 @@
                             {% for income in incomes %}
                             <tr>
                                 <td>
-                                    <span class="id-badge">
-                                        <i class="fas fa-hashtag" style="font-size: 0.65rem;"></i>{{ income.id }}
+                                    <span class="date-badge">
+                                        <i class="fas fa-calendar-day"></i>
+                                        {{ income.date|date:"M d, Y" }}
                                     </span>
                                 </td>
-                                <td class="income-amount">+${{ income.amount }}</td>
+                                <td class="income-amount">+₹{{ income.amount }}</td>
                                 <td style="text-align: right;">
                                     <div class="action-group">
                                         <a href="{% url 'edit_income' income.id %}" class="edit-action-btn">
@@ -397,7 +403,7 @@
 
                                         <form method="POST" action="{% url 'delete_income' income.id %}"
                                             style="display: inline;"
-                                            onsubmit="return confirm('Delete this income record of ${{ income.amount }}?');">
+                                            onsubmit="return confirm('Delete this income record of ₹{{ income.amount }}?');">
                                             {% csrf_token %}
                                             <button type="submit" class="delete-action-btn">
                                                 <i class="fas fa-trash-can"></i>

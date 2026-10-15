@@ -12,27 +12,33 @@
 
     <style>
         :root {
-            --brand-dark: #086288;
-            --brand-mid: #4D8DBA;
-            --brand-ice: #97D7FF;
-            --brand-cream: #FFEFC4;
+            /* Corporate Light Theme Variables */
+            --brand-primary: #2563eb;
+            --brand-primary-hover: #1d4ed8;
 
-            --bg-base: #06151f;
-            --bg-surface: #0b1f2e;
-            --bg-surface-elevated: #10293d;
-            --bg-input: #081723;
+            --bg-base: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-input: #ffffff;
 
-            --border-color: rgba(77, 141, 186, 0.22);
-            --border-focus: #4D8DBA;
+            --border-color: #cbd5e1;
+            --border-dark: #0f172a; /* Clear dark border */
+            --border-focus: #2563eb;
 
-            --text-main: #f4f9fc;
-            --text-muted: #8ca5b5;
-            --income-green: #4ade80;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            
+            --income-green: #16a34a; /* Adjusted for light background */
+            --danger-red: #dc2626;
+            --danger-bg: #fef2f2;
+            --danger-border: #fecaca;
 
             --sidebar-width: 260px;
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+            
+            /* Distinct shadow for separation */
+            --shadow-distinct: 0 8px 16px rgba(0, 0, 0, 0.08);
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -48,11 +54,6 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            background-image: 
-                radial-gradient(ellipse at 85% 10%, rgba(77, 141, 186, 0.14) 0%, transparent 55%),
-                radial-gradient(ellipse at 15% 90%, rgba(8, 98, 136, 0.2) 0%, transparent 60%),
-                radial-gradient(#10293d 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 28px 28px;
         }
 
         /* Offset wrapper for left sidebar */
@@ -69,9 +70,9 @@
 
         .form-card {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-dark);
             border-radius: var(--radius-lg);
-            box-shadow: 0 25px 50px -12px rgba(2, 8, 14, 0.7), 0 0 0 1px rgba(151, 215, 255, 0.05);
+            box-shadow: var(--shadow-distinct);
             width: 100%;
             max-width: 480px;
             padding: 36px 32px;
@@ -91,8 +92,8 @@
             text-transform: uppercase;
             letter-spacing: 0.7px;
             color: var(--income-green);
-            background: rgba(74, 222, 128, 0.12);
-            border: 1px solid rgba(74, 222, 128, 0.25);
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
             padding: 4px 10px;
             border-radius: 999px;
             margin-bottom: 12px;
@@ -101,7 +102,7 @@
         .card-title {
             font-size: 1.55rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             letter-spacing: -0.4px;
             display: flex;
             align-items: center;
@@ -124,10 +125,10 @@
         .errorlist {
             list-style: none;
             padding: 12px 14px;
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-border);
             border-radius: var(--radius-md);
-            color: #f87171;
+            color: var(--danger-red);
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 20px;
@@ -145,9 +146,10 @@
             display: block;
             font-size: 0.82rem;
             font-weight: 700;
-            color: #d1e2ed;
+            color: var(--text-main);
             margin-bottom: 8px;
             letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
 
         .input-wrapper {
@@ -161,7 +163,7 @@
             left: 16px;
             font-weight: 800;
             font-size: 1.15rem;
-            color: var(--brand-ice);
+            color: var(--text-muted);
             pointer-events: none;
         }
 
@@ -180,16 +182,15 @@
 
         .input-wrapper input:focus {
             border-color: var(--border-focus);
-            background: var(--bg-surface-elevated);
-            box-shadow: 0 0 0 3px rgba(77, 141, 186, 0.18);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
         /* Buttons & Actions */
         .submit-btn {
             width: 100%;
-            background: var(--brand-cream);
-            color: #06151f;
-            border: none;
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--border-dark);
             padding: 13px;
             border-radius: var(--radius-md);
             font-size: 0.95rem;
@@ -201,13 +202,13 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 16px rgba(255, 239, 196, 0.15);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .submit-btn:hover {
-            background: #ffffff;
+            background: var(--brand-primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 239, 196, 0.25);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
         }
 
         .cancel-link {
@@ -218,6 +219,7 @@
             width: 100%;
             text-align: center;
             font-size: 0.88rem;
+            font-weight: 600;
             color: var(--text-muted);
             text-decoration: none;
             margin-top: 14px;
@@ -227,8 +229,8 @@
         }
 
         .cancel-link:hover {
-            color: var(--brand-cream);
-            background: rgba(77, 141, 186, 0.1);
+            color: var(--brand-primary);
+            background: #e2e8f0;
         }
 
         @media (max-width: 820px) {
@@ -288,7 +290,15 @@
                                value="{{ form.amount.value|default:income.amount }}" required autofocus>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label for="date">Income Date</label>
+                    <div class="input-wrapper">
+                        <!-- Using standard FontAwesome icon to match your design -->
+                        <span class="input-prefix"><i class="fas fa-calendar-alt" style="font-size: 0.95rem;"></i></span>
+                        <input type="date" id="date" name="date" 
+                               value="{{ income.date|date:'Y-m-d' }}" required>
+                    </div>
+                </div>
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-check"></i>
                     Update Income
