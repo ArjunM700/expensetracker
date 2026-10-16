@@ -1,33 +1,70 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import authenticate,login
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
     return render(request,'index.html')
 def register(request):
     if request.method=='POST':
-        first_name=request.POST.get('first_name')
-        last_name=request.POST.get('last_name')
-        username=request.POST.get('username')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
+        first_name=request.POST.get('first_name','').strip()
+        last_name=request.POST.get('last_name','').strip()
+        username=request.POST.get('username','').strip()
+        email=request.POST.get('email','').strip()
+        password=request.POST.get('password','')
 
-        user= User.objects.create_user(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=password,
-        )
-        login(request,user)
-        return redirect('login')
+        # Validate required fields
+        if not username or not email or not password or not first_name or not last_name:
+            messages.error(request, 'All fields are required. Please fill in every field.')
+            return render(request,'register.html')
+
+        # Validate password length
+        if len(password) < 6:
+            messages.error(request, 'Password must be at least 6 characters long.')
+            return render(request,'register.html')
+
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'An account with that username already exists. Please choose a different one.')
+            return render(request,'register.html')
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'An account with that email address already exists. Try logging in instead.')
+            return render(request,'register.html')
+
+        try:
+            user= User.objects.create_user(
+                username=username,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=password,
+            )
+            messages.success(request, 'Account created successfully! Please sign in.')
+            return redirect('login')
+        except Exception:
+            messages.error(request, 'Something went wrong while creating your account. Please try again.')
+            return render(request,'register.html')
+
     return render(request,'register.html')
 
 def login_user(request):
     if request.method == 'POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
+        username=request.POST.get('username','').strip()
+        password=request.POST.get('password','')
+
+        # Validate required fields
+        if not username or not password:
+            messages.error(request, 'Please enter both username and password.')
+            return render(request,'login.html')
+
+        # Check if the username exists
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, 'No account found with that username.')
+            return render(request,'login.html')
 
         user= authenticate(
             request,
@@ -37,6 +74,9 @@ def login_user(request):
         if user is not None:
             login(request,user)
             return redirect('home')
+        else:
+            messages.error(request, 'Incorrect password. Please try again.')
+            return render(request,'login.html')
     return render(request,'login.html')
 
 from django.shortcuts import render, redirect
